@@ -1,10 +1,8 @@
 <template>
   <div class="min-h-screen bg-[#F4F7FA] flex flex-col md:flex-row font-sans text-slate-800">
     
-    <!-- LEFT SIDEBAR: Navigasi Per Sesi Topik -->
     <aside class="hidden md:flex w-64 bg-white border-r border-slate-200 flex-col justify-between p-6 shadow-sm shrink-0">
       <div class="space-y-8">
-        <!-- Logo PJT1 -->
         <div @click="goToHome" class="cursor-pointer group flex items-center space-x-3">
           <img src="/logopjt1.png" alt="Logo PJT I" class="h-8 w-auto object-contain" />
           <div>
@@ -13,7 +11,6 @@
           </div>
         </div>
 
-        <!-- Menu Sesi -->
         <nav class="space-y-1.5">
           <button 
             v-for="(topic, index) in topics" 
@@ -59,9 +56,7 @@
       </div>
     </aside>
 
-    <!-- RIGHT CONTAINER SECTION -->
     <div class="flex-1 flex flex-col justify-between min-w-0">
-      <!-- HEADER -->
       <header class="bg-white border-b border-slate-200 px-4 sm:px-8 py-4 flex items-center justify-between shadow-sm">
         <div class="flex items-center space-x-2 text-xs sm:text-sm font-medium truncate">
           <span class="text-slate-800 font-bold">KUESIONER PENGUKURAN LOYALITAS PELANGGAN</span>
@@ -70,13 +65,10 @@
         </div>
       </header>
 
-      <!-- SURVEY CONTENT BODY -->
       <main class="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-8 py-6 sm:py-10 space-y-6 overflow-y-auto">
         
-        <!-- PROGRESS STATUS CARD -->
         <div class="bg-white border border-slate-200 rounded-xl p-4 sm:p-6 shadow-sm space-y-4">
           
-          <!-- 1. PENJELASAN SKALA LIKERT (Berada di SEBELAH ATAS Judul Sesi jika di Sesi 1-5) -->
           <div v-if="currentSession < topics.length" class="bg-slate-50 border border-slate-200 rounded-xl p-3 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-semibold text-slate-600">
             <span class="flex items-center gap-1.5"><span class="w-5 h-5 bg-white border border-slate-300 rounded flex items-center justify-center font-bold text-[#004B87]">1</span> Sangat Tidak Setuju</span>
             <span class="flex items-center gap-1.5"><span class="w-5 h-5 bg-white border border-slate-300 rounded flex items-center justify-center font-bold text-slate-500">2</span> Tidak Setuju</span>
@@ -85,7 +77,6 @@
             <span class="flex items-center gap-1.5"><span class="w-5 h-5 bg-white border border-slate-300 rounded flex items-center justify-center font-bold text-[#004B87]">5</span> Sangat Setuju</span>
           </div>
 
-          <!-- Judul Sesi dan Progress Kuesioner -->
           <div class="flex items-center justify-between gap-2 pt-1">
             <div>
               <h1 class="text-xl sm:text-2xl font-bold text-slate-900">{{ currentSessionName }}</h1>
@@ -101,7 +92,6 @@
           </div>
         </div>
 
-        <!-- JIKA DI SESI 1-5: PERTANYAAN LIKERT -->
         <div v-if="currentSession < topics.length" class="space-y-4">
           <div 
             v-for="(q, idx) in currentQuestions" 
@@ -113,7 +103,6 @@
               <p class="text-slate-700 text-sm sm:text-base font-medium leading-relaxed">{{ q.text }}</p>
             </div>
             
-            <!-- LIKERT INPUT FIELD: Bersih tanpa tulisan label bawah (STP / SP) -->
             <div class="flex items-center space-x-2.5 shrink-0 pt-2 lg:pt-0 border-t border-slate-100 lg:border-t-0 justify-between sm:justify-start">
               <div v-for="score in 5" :key="score" class="flex flex-col items-center">
                 <button 
@@ -129,7 +118,6 @@
           </div>
         </div>
 
-        <!-- JIKA DI SESI 6: INPUT SARAN -->
         <div v-else class="bg-white border border-slate-200 rounded-xl p-5 sm:p-6 shadow-sm space-y-4">
           <div class="space-y-2">
             <label class="block text-sm font-bold text-slate-900">Saran, Kritik, atau Catatan Tambahan:</label>
@@ -142,7 +130,6 @@
           </div>
         </div>
 
-        <!-- LOWER NAVIGATION ACTIONS -->
         <div class="flex items-center justify-between pt-2 sm:pt-4 gap-4">
           <button @click="handleBack" type="button" class="bg-white border-2 border-slate-200 hover:border-slate-400 text-slate-600 font-bold py-2.5 sm:py-3 px-5 sm:px-6 rounded-xl flex items-center justify-center space-x-2 transition-all text-sm shadow-sm">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
@@ -156,7 +143,6 @@
         </div>
       </main>
 
-      <!-- SUB FOOTER -->
       <footer class="bg-white border-t border-slate-100 px-4 sm:px-8 py-4 text-[9px] sm:text-[10px] text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
         <p>© 2026 Perum Jasa Tirta I. All rights reserved.</p>
         <div class="flex space-x-4 font-medium text-slate-400">
@@ -174,6 +160,8 @@ import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router' 
 
 const router = useRouter()
+// Memanggil client Supabase bawaan dari modul Nuxt
+const supabase = useSupabaseClient()
 
 const currentSession = ref(0)
 const saranText = ref('')
@@ -248,7 +236,7 @@ const handleBack = () => {
   }
 }
 
-const handleNext = () => {
+const handleNext = async () => {
   if (currentSession.value < topics.value.length) {
     const unfinished = currentQuestions.value.some(q => answers.value[q.id] === null)
     if (unfinished) {
@@ -256,14 +244,35 @@ const handleNext = () => {
       return
     }
     currentSession.value++
-} else {
-  console.log('Final Questionnaire Data Submitted:', {
-    responses: answers.value,
-    feedback: saranText.value
-  })
-  
-  // KOREKSI SINI: Ubah /success menjadi /confirmation agar selaras dengan nama filemu
-  router.push('/confirmation')
+  } else {
+    // Jalur pengiriman data kuesioner final ke Supabase ketika sesi terakhir disubmit
+    try {
+      const respondentId = localStorage.getItem('current_respondent_id')
+      
+      if (!respondentId) {
+        alert('Sesi pengisian kadaluarsa. Silakan isi ulang identitas Anda dari halaman awal.')
+        router.push('/')
+        return
+      }
+
+      const { error } = await supabase
+        .from('questionnaire_responses')
+        .insert([
+          {
+            respondent_id: respondentId,
+            answers: answers.value,
+            feedback: saranText.value.trim() !== '' ? saranText.value.trim() : null
+          }
+        ])
+
+      if (error) throw error
+
+      localStorage.removeItem('current_respondent_id')
+      router.push('/confirmation')
+    } catch (err) {
+      console.error('Gagal mengirim kuesioner ke Supabase:', err.message)
+      alert('Gagal mengirimkan kuesioner ke server. Silakan periksa koneksi Anda dan coba lagi.')
+    }
   }
 }
 
