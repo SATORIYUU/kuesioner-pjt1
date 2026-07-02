@@ -17,15 +17,15 @@
       </div>
 
       <div class="flex items-center text-xs sm:text-sm font-medium text-slate-600">
-  <a 
-    href="https://jasatirta1.co.id/" 
-    target="_blank" 
-    rel="noopener noreferrer" 
-    class="hover:text-[#004B87] transition-colors"
-  >
-    Tentang Kami
-  </a>
-</div>
+        <a 
+          href="https://jasatirta1.co.id/" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="hover:text-[#004B87] transition-colors"
+        >
+          Tentang Kami
+        </a>
+      </div>
     </nav>
 
     <main class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12 flex flex-col lg:flex-row gap-6 lg:gap-8 items-start lg:items-stretch justify-center relative z-10 box-border">
@@ -130,10 +130,15 @@
           </div>
 
           <div class="space-y-4 sm:space-y-6 w-full">
-            <button class="w-full bg-white border-2 border-[#004B87] text-[#004B87] hover:bg-sky-50 font-bold py-3.5 sm:py-4 px-6 rounded-xl flex items-center justify-center space-x-2 transition-all text-sm sm:text-base">
-              <span>Login sebagai Admin</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 11-6 0v-1" /></svg>
-            </button>
+            <button 
+  @click="router.push('/admin/login')" 
+  class="w-full bg-white border-2 border-[#004B87] text-[#004B87] hover:bg-sky-50 font-bold py-3.5 sm:py-4 px-6 rounded-xl flex items-center justify-center space-x-2 transition-all text-sm sm:text-base cursor-pointer"
+>
+  <span>Login sebagai Admin</span>
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 11-6 0v-1" />
+  </svg>
+</button>
 
             <div class="flex items-center space-x-3 pt-2">
               <div class="flex -space-x-2 overflow-hidden">
@@ -144,20 +149,18 @@
       </div>
     </main>
 
-<!-- KOREKSI: Mengganti text-slate ke text-white di seluruh elemen footer -->
-<!-- REVISI: Mengubah bg-white/90 menjadi bg-[#004B87] (Biru PJT I) dan merubah teks hitam menjadi putih murni -->
-<footer class="w-full bg-[#004B87] border-t border-sky-700/50 px-6 sm:px-12 py-6 text-xs text-white flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left relative z-10">
-  <div>
-    <span class="font-semibold text-white">Perum Jasa Tirta</span>
-    <p class="text-sky-200/80">© 2026 Perum Jasa Tirta. All rights reserved.</p>
-  </div>
-  <div class="flex flex-wrap justify-center sm:justify-end gap-x-4 gap-y-2 sm:gap-x-6 font-medium text-sky-100">
-    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
-    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
-    <a href="#" class="hover:text-white transition-colors">Sustainability Report</a>
-    <a href="#" class="hover:text-white transition-colors">Contact Support</a>
-  </div>
-</footer>
+    <footer class="w-full bg-[#004B87] border-t border-sky-700/50 px-6 sm:px-12 py-6 text-xs text-white flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left relative z-10">
+      <div>
+        <span class="font-semibold text-white">Perum Jasa Tirta</span>
+        <p class="text-sky-200/80">© 2026 Perum Jasa Tirta. All rights reserved.</p>
+      </div>
+      <div class="flex flex-wrap justify-center sm:justify-end gap-x-4 gap-y-2 sm:gap-x-6 font-medium text-sky-100">
+        <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+        <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+        <a href="#" class="hover:text-white transition-colors">Sustainability Report</a>
+        <a href="#" class="hover:text-white transition-colors">Contact Support</a>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -166,6 +169,8 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
+// Memanggil client Supabase bawaan dari modul Nuxt
+const supabase = useSupabaseClient()
 
 const companyName = ref('')
 const category = ref('Pemanfaat')
@@ -173,13 +178,38 @@ const subCategory = ref('PLTA')
 
 const showError = ref(false)
 
-const navigateToQuestionnaire = () => {
+const navigateToQuestionnaire = async () => {
   if (!companyName.value || !companyName.value.trim()) {
     showError.value = true
     return
   }
   
   showError.value = false
-  router.push('/questionnaire')
+
+  try {
+    // Menyimpan data identitas awal responden ke tabel 'respondents' di Supabase
+    const { data, error } = await supabase
+      .from('respondents')
+      .insert([
+        { 
+          company_name: companyName.value.trim(), 
+          category: category.value, 
+          sub_category: category.value === 'Pemanfaat' ? subCategory.value : null 
+        }
+      ])
+      .select()
+      .single()
+
+    if (error) throw error
+
+    // Simpan ID UUID dari Supabase ke localStorage agar bisa dibaca di berkas questionnaire.vue
+    localStorage.setItem('current_respondent_id', data.id)
+
+    // Berpindah ke halaman kuesioner
+    router.push('/questionnaire')
+  } catch (err) {
+    console.error('Gagal menyimpan identitas ke Supabase:', err.message)
+    alert('Terjadi kesalahan sistem saat mendaftarkan perusahaan. Silakan coba lagi.')
+  }
 }
 </script>
