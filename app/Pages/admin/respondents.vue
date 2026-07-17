@@ -35,14 +35,12 @@
           <span>Overview</span>
         </NuxtLink>
 
-        <NuxtLink 
+      <NuxtLink 
           to="/admin/respondents" 
-          :class="route.path === '/admin/respondents' 
-            ? 'bg-blue-50 text-[#004B87] font-bold border-l-4 border-[#004B87]' 
-            : 'text-slate-600 hover:bg-slate-50 font-medium'"
+          :class="route.path === '/admin/respondents' ? 'bg-blue-50 text-[#004B87] font-bold border-l-4 border-[#004B87]' : 'text-slate-600 hover:bg-slate-50 font-medium'"
           class="flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>
           <span>Respondent Data</span>
         </NuxtLink>
 
@@ -99,7 +97,7 @@
             <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">{{ card.name }}</span>
             <div class="flex items-baseline justify-between mt-2">
               <span class="text-2xl font-extrabold text-slate-800">{{ card.count }}</span>
-              <span class="text-[11px] font-bold bg-emerald-50 text-emerald-600 px-1.5 py-0.5 rounded border border-emerald-100">+2%</span>
+
             </div>
           </div>
         </div>
@@ -130,7 +128,7 @@
               <thead class="bg-[#004B87] text-white text-[11px] font-bold uppercase tracking-wider">
                 <tr>
                   <th class="px-6 py-4 w-12 text-center">No.</th>
-                  <th class="px-6 py-4">Nama Perusahaan</th>
+                  <th class="px-6 py-4 min-w-[200px]">Nama Perusahaan</th>
                   <th class="px-6 py-4">Kategori</th>
                   <th class="px-6 py-4">Sub Kategori</th>
                   <th class="px-6 py-4">Tanggal</th>
@@ -161,7 +159,7 @@
                   :class="expandedRowId === row.id ? 'bg-slate-50/50' : ''"
                 >
                   <td class="px-6 py-5 text-center text-slate-400 font-bold">{{ index + 1 }}</td>
-                  <td class="px-6 py-5 text-slate-900 font-bold">{{ row.company }}</td>
+                  <td class="px-6 py-5 text-slate-900 font-bold whitespace-normal">{{ row.company }}</td>
                   <td class="px-6 py-5">
                     <span class="bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold border border-emerald-100">
                       {{ row.mainCat }}
@@ -175,12 +173,12 @@
                   <td class="px-6 py-5 text-slate-500">{{ row.date }}</td>
                 </tr>
 
-                <!-- DROPDOWN ACCORDION CONTENT (Sesuai Gambar Referensi) -->
+                <!-- DROPDOWN ACCORDION CONTENT -->
                 <tr v-if="expandedRowId === row.id">
                   <td colspan="5" class="bg-white px-8 py-6 border-t border-slate-100 shadow-inner">
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start w-full">
                       
-                      <!-- Sisi Kiri: Klasifikasi Dimensi & Dropdown Butir Pertanyaan -->
+                      <!-- Sisi Kiri: Klasifikasi Dimensi -->
                       <div class="lg:col-span-6 space-y-4">
                         <h4 class="text-xs font-extrabold text-slate-400 uppercase tracking-wider mb-2">Klasifikasi</h4>
                         
@@ -209,7 +207,6 @@
                             </div>
                           </div>
 
-                          <!-- Detail Butir Skor di dalam Sub-Dropdown Klasifikasi -->
                           <div v-if="expandedDimId === dim.id" class="mt-3 bg-slate-50 rounded-xl p-3 space-y-2 border border-slate-100 transition-all">
                             <div v-for="q in dim.questions" :key="q.id" class="flex justify-between items-center text-xs font-medium text-slate-600">
                               <span>Pertanyaan {{ q.id }}</span>
@@ -219,13 +216,14 @@
                         </div>
                       </div>
 
-                      <!-- Sisi Kanan: Umpan Balik / Saran (Feedback Box) -->
-                      <div class="lg:col-span-6 flex flex-col h-full justify-between">
+                      <!-- PERBAIKAN SISI KANAN: Kotak Saran Terbatas & Bisa di-Scroll -->
+                      <div class="lg:col-span-6 flex flex-col h-full w-full">
                         <div>
                           <h4 class="text-xs font-extrabold text-slate-400 uppercase tracking-wider mb-2">Saran</h4>
-                          <div class="bg-slate-50 border border-slate-100 rounded-2xl p-5 shadow-sm min-h-[140px] flex items-center justify-center">
-                            <p class="text-sm text-slate-600 font-medium leading-relaxed italic text-center">
-                              "{{ row.feedback || 'Tidak ada catatan saran tertulis yang dikirimkan oleh responden ini.' }}"
+                          <div class="bg-slate-50 border border-slate-100 rounded-2xl p-4 shadow-sm w-full max-h-48 overflow-y-auto custom-scrollbar">
+                            <p class="text-sm text-slate-600 font-medium leading-relaxed italic whitespace-normal break-words">
+                              <span v-if="row.feedback && row.feedback.trim()">"{{ row.feedback }}"</span>
+                              <span v-else class="text-slate-400 font-normal">Tidak ada catatan saran tertulis yang dikirimkan oleh responden ini.</span>
                             </p>
                           </div>
                         </div>
@@ -253,20 +251,7 @@
               </tbody>
             </table>
           </div>
-
-          <!-- PAGINATION FOOTER -->
-          <div class="px-6 py-4 border-t border-slate-200 flex items-center justify-between bg-slate-50/50">
-            <span class="text-sm text-slate-500 font-medium">
-              Showing {{ filteredRespondents.length }} of {{ totalCount }} active bridges
-            </span>
-            <div class="flex items-center space-x-1">
-              <button class="px-3 py-1 border border-slate-200 rounded-md bg-white text-slate-400 cursor-not-allowed" disabled>‹</button>
-              <button class="px-3 py-1 border border-slate-200 rounded-md bg-[#004B87] text-white font-bold">1</button>
-              <button class="px-3 py-1 border border-slate-200 rounded-md bg-white text-slate-400 cursor-not-allowed" disabled>›</button>
-            </div>
-          </div>
         </div>
-
       </main>
     </div>
   </div>
