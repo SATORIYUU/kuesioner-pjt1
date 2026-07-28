@@ -1,6 +1,13 @@
 <template>
-  <div class="min-h-screen w-full bg-[#F4F7FA] flex font-sans text-slate-800 overflow-x-hidden">
+  <div class="h-screen w-full bg-[#F4F7FA] flex overflow-hidden font-sans text-slate-800">
     
+    <!-- Latar Belakang Overlay untuk Mobile -->
+    <div 
+      v-if="isSidebarOpen" 
+      @click="isSidebarOpen = false"
+      class="fixed inset-0 bg-slate-900/50 z-20 lg:hidden transition-opacity"
+    ></div>
+
     <!-- SIDEBAR COMPONENT -->
     <aside 
       :class="isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0 lg:-ml-64'"
@@ -21,21 +28,28 @@
         </button>
       </div>
 
-      <!-- Menu Navigasi Sidebar Dinamis -->
-     <nav class="flex-1 px-4 space-y-2 mt-4">
-        
+      <nav class="flex-1 px-4 space-y-2 mt-4">
         <NuxtLink 
           to="/admin/dashboard" 
-          :class="route.path === '/admin/dashboard' 
-            ? 'bg-blue-50 text-[#004B87] font-bold border-l-4 border-[#004B87]' 
-            : 'text-slate-600 hover:bg-slate-50 font-medium'"
+          :class="route.path === '/admin/dashboard' ? 'bg-blue-50 text-[#004B87] font-bold border-l-4 border-[#004B87]' : 'text-slate-600 hover:bg-slate-50 font-medium'"
           class="flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2h-2a2 2 0 01-2-2v-2z" /></svg>
           <span>Overview</span>
         </NuxtLink>
+        
+        <NuxtLink 
+          to="/admin/klien" 
+          :class="route.path === '/admin/klien' ? 'bg-blue-50 text-[#004B87] font-bold border-l-4 border-[#004B87]' : 'text-slate-600 hover:bg-slate-50 font-medium'"
+          class="flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+          <span>Data Klien</span>
+        </NuxtLink>
 
-      <NuxtLink 
+        <NuxtLink 
           to="/admin/respondents" 
           :class="route.path === '/admin/respondents' ? 'bg-blue-50 text-[#004B87] font-bold border-l-4 border-[#004B87]' : 'text-slate-600 hover:bg-slate-50 font-medium'"
           class="flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200"
@@ -45,214 +59,310 @@
         </NuxtLink>
 
         <NuxtLink 
-          to="/admin/analytics" 
-          :class="route.path === '/admin/analytics' 
-            ? 'bg-blue-50 text-[#004B87] font-bold border-l-4 border-[#004B87]' 
-            : 'text-slate-600 hover:bg-slate-50 font-medium'"
+          to="/admin/questions" 
+          :class="route.path === '/admin/questions' ? 'bg-blue-50 text-[#004B87] font-bold border-l-4 border-[#004B87]' : 'text-slate-600 hover:bg-slate-50 font-medium'"
           class="flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
-          <span>Analytics</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-5 w-5 shrink-0">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
+          </svg>
+          <span>Manage Questions</span>
         </NuxtLink>
       </nav>
 
       <div class="p-4 border-t border-slate-200">
         <button @click="handleLogout" class="flex items-center space-x-3 px-4 py-3 w-full text-slate-600 hover:text-red-600 hover:bg-red-50 font-medium rounded-xl transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 11-6 0v-1m6-10V5a3 3 0 11-6 0v-1" /></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-5 w-5 shrink-0">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
+          </svg>
           <span>Logout</span>
         </button>
       </div>
     </aside>
 
-    <!-- MAIN CONTENT AREA -->
-    <div class="flex-1 flex flex-col min-w-0 min-h-screen overflow-y-auto">
+    <!-- CONTENT AREA -->
+    <div class="flex-1 flex flex-col min-w-0 bg-[#F8FAFC] overflow-hidden">
       
+      <!-- NAVBAR HEADER -->
       <header class="bg-white border-b border-slate-200 h-16 flex items-center justify-between px-4 sm:px-8 shrink-0 sticky top-0 z-20">
         <div class="flex items-center space-x-4">
           <button @click="isSidebarOpen = !isSidebarOpen" class="text-slate-500 hover:text-[#004B87] transition-colors focus:outline-none bg-white border border-slate-200 hover:bg-slate-50 p-1.5 rounded-lg shadow-sm">
             <svg v-if="isSidebarOpen" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" /></svg>
             <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
           </button>
-          <h1 class="text-base sm:text-xl font-extrabold text-slate-800 tracking-tight">Data Responden</h1>
-        </div>
-      </header>
-
-      <main class="p-4 sm:p-8 space-y-6 flex-1 max-w-7xl w-full mx-auto">
-        
-        <!-- Page Title Description & Export Button -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <h2 class="text-2xl font-bold text-slate-900 mb-1">Data Responden</h2>
-            <p class="text-xs sm:text-sm text-slate-400 font-medium">Manage and view detailed infrastructure & service quality assessments.</p>
-          </div>
-          <button class="bg-[#004B87] text-white px-4 py-2 rounded-lg font-bold text-sm shadow flex items-center gap-2 hover:bg-sky-900 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
-            <span>Export Report</span>
-          </button>
+          <h1 class="text-base sm:text-xl font-extrabold text-slate-800 tracking-tight">Perum Jasa Tirta 1</h1>
         </div>
 
-        <!-- 4 SUMMARY CARDS BOX (Sesuai Layout Gambar Referensi) -->
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <div v-for="card in summaryCards" :key="card.name" class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">{{ card.name }}</span>
-            <div class="flex items-baseline justify-between mt-2">
-              <span class="text-2xl font-extrabold text-slate-800">{{ card.count }}</span>
-
+        <div class="flex items-center space-x-6 sm:space-x-8">
+          <div class="flex items-center space-x-3 border-l border-slate-200 pl-6 h-9">
+            <div class="hidden sm:block text-right">
+              <p class="text-sm font-bold text-slate-900 leading-none">Admin User Profile</p>
+              <p class="text-[10px] text-slate-500 font-medium mt-1">Operations Manager</p>
+            </div>
+            <div class="h-9 w-9 rounded-full bg-[#004B87] text-white flex items-center justify-center font-bold text-sm shadow-sm shrink-0">
+              AD
             </div>
           </div>
         </div>
+      </header>
 
-        <!-- SEARCH AND FILTER INTERFACE -->
-        <div class="flex items-center gap-3 w-full">
-          <div class="relative flex-1">
-            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.602 10.602Z" /></svg>
-            </span>
-            <input 
-              v-model="searchQuery"
-              type="text" 
-              placeholder="Search connections, systems, or logs..." 
-              class="w-full bg-white border border-slate-200 rounded-lg py-2 pl-9 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#004B87]"
-            />
+      <!-- MAIN SCROLLABLE CONTENT BODY -->
+      <div class="flex-1 overflow-auto p-4 sm:p-8 custom-scrollbar">
+        <div class="max-w-7xl mx-auto space-y-6">
+          
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h2 class="text-2xl font-bold text-slate-900 mb-1">Data Responden</h2>
+              <p class="text-xs sm:text-sm text-slate-400 font-medium">Monitoring status pengisian kuesioner dan penilaian kualitas layanan per kuesioner.</p>
+            </div>
+            <div class="text-xs text-slate-500 font-medium bg-white px-3 py-2 rounded-lg border border-slate-200 shadow-sm self-start sm:self-auto">
+              Total Ditampilkan: <span class="font-bold text-[#004B87]">{{ filteredRespondents.length }}</span> / {{ allClientsList.length }} Klien
+            </div>
           </div>
-          <button class="bg-white border border-slate-200 text-slate-700 px-4 py-2 rounded-lg font-bold text-sm shadow-sm flex items-center gap-2 hover:bg-slate-50">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" /></svg>
-            <span>Filter</span>
-          </button>
-        </div>
 
-        <!-- RESPONDENT EXPANDABLE TABLE -->
-        <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
-          <div class="overflow-x-auto">
-            <table class="w-full text-left text-sm whitespace-nowrap border-collapse">
-              <thead class="bg-[#004B87] text-white text-[11px] font-bold uppercase tracking-wider">
-                <tr>
-                  <th class="px-6 py-4 w-12 text-center">No.</th>
-                  <th class="px-6 py-4 min-w-[200px]">Nama Perusahaan</th>
-                  <th class="px-6 py-4">Kategori</th>
-                  <th class="px-6 py-4">Sub Kategori</th>
-                  <th class="px-6 py-4">Tanggal</th>
-                </tr>
-              </thead>
+          <!-- 4 SUMMARY CARDS BOX -->
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Sudah Mengisi</span>
+              <div class="flex items-baseline justify-between mt-2">
+                <span class="text-2xl font-extrabold text-emerald-600">{{ statusCounts.filled }}</span>
+                <span class="text-[10px] font-semibold text-slate-400">Responden</span>
+              </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Belum Mengisi</span>
+              <div class="flex items-baseline justify-between mt-2">
+                <span class="text-2xl font-extrabold text-rose-500">{{ statusCounts.unfilled }}</span>
+                <span class="text-[10px] font-semibold text-slate-400">Responden</span>
+              </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Klien Aktif</span>
+              <div class="flex items-baseline justify-between mt-2">
+                <span class="text-2xl font-extrabold text-[#004B87]">{{ statusCounts.active }}</span>
+                <span class="text-[10px] font-semibold text-slate-400">Klien</span>
+              </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Klien Non-Aktif</span>
+              <div class="flex items-baseline justify-between mt-2">
+                <span class="text-2xl font-extrabold text-slate-400">{{ statusCounts.inactive }}</span>
+                <span class="text-[10px] font-semibold text-slate-400">Klien</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- SEARCH & FILTER TOOLBAR -->
+          <div class="bg-white p-4 border border-slate-200 rounded-xl shadow-sm flex flex-col lg:flex-row gap-3 items-center justify-between">
+            
+            <div class="relative w-full lg:w-72">
+              <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </span>
+              <input 
+                v-model="searchQuery" 
+                type="text" 
+                placeholder="Cari nama perusahaan..." 
+                class="w-full pl-9 pr-4 py-2 border border-slate-200 rounded-lg text-xs focus:ring-2 focus:ring-[#004B87] focus:outline-none"
+              />
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2 w-full lg:w-auto">
               
-              <tbody v-if="isLoading" class="divide-y divide-slate-100 font-medium">
-                <tr>
-                  <td colspan="5" class="px-6 py-12 text-center text-slate-400 animate-pulse font-semibold">
-                    Loading data responses and calculating classifications...
-                  </td>
-                </tr>
-              </tbody>
+              <select v-model="selectedFillStatus" class="border border-slate-200 rounded-lg px-3 py-2 text-xs focus:ring-2 focus:ring-[#004B87] bg-white font-medium">
+                <option value="">Semua Status Pengisian</option>
+                <option value="sudah">Sudah Mengisi</option>
+                <option value="belum">Belum Mengisi</option>
+              </select>
 
-              <tbody v-else-if="filteredRespondents.length === 0" class="divide-y divide-slate-100 font-medium">
-                <tr>
-                  <td colspan="5" class="px-6 py-12 text-center text-slate-400 font-semibold">
-                    No data respondents found.
-                  </td>
-                </tr>
-              </tbody>
+              <select v-model="selectedDateSort" class="border border-slate-200 rounded-lg px-3 py-2 text-xs focus:ring-2 focus:ring-[#004B87] bg-white font-medium">
+                <option value="terbaru">Tanggal: Paling Baru</option>
+                <option value="terlama">Tanggal: Paling Lama</option>
+              </select>
 
-              <tbody v-else v-for="(row, index) in filteredRespondents" :key="row.id" class="border-b border-slate-200">
-                <!-- ROW DATA UTAMA -->
-                <tr 
-                  @click="toggleRow(row.id)" 
-                  class="hover:bg-slate-50/80 cursor-pointer transition-colors font-semibold"
-                  :class="expandedRowId === row.id ? 'bg-slate-50/50' : ''"
-                >
-                  <td class="px-6 py-5 text-center text-slate-400 font-bold">{{ index + 1 }}</td>
-                  <td class="px-6 py-5 text-slate-900 font-bold whitespace-normal">{{ row.company }}</td>
-                  <td class="px-6 py-5">
-                    <span class="bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold border border-emerald-100">
-                      {{ row.mainCat }}
-                    </span>
-                  </td>
-                  <td class="px-6 py-5">
-                    <span :class="row.subCat !== '-' ? 'bg-cyan-50 text-cyan-700 border border-cyan-100' : 'bg-slate-100 text-slate-400'" class="px-3 py-1 rounded-full text-xs font-bold">
-                      {{ row.subCat }}
-                    </span>
-                  </td>
-                  <td class="px-6 py-5 text-slate-500">{{ row.date }}</td>
-                </tr>
+              <label class="flex items-center gap-2 px-3 py-2 border border-slate-200 rounded-lg text-xs bg-slate-50 cursor-pointer hover:bg-slate-100 select-none font-medium">
+                <input 
+                  type="checkbox" 
+                  v-model="hideInactive" 
+                  class="rounded border-slate-300 text-[#004B87] focus:ring-[#004B87] h-3.5 w-3.5"
+                />
+                <span>Sembunyikan Klien Tidak Aktif</span>
+              </label>
 
-                <!-- DROPDOWN ACCORDION CONTENT -->
-                <tr v-if="expandedRowId === row.id">
-                  <td colspan="5" class="bg-white px-8 py-6 border-t border-slate-100 shadow-inner">
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start w-full">
+              <button 
+                v-if="searchQuery || selectedFillStatus || selectedDateSort !== 'terbaru' || hideInactive" 
+                @click="resetFilters" 
+                class="text-xs text-rose-600 hover:text-rose-800 font-bold px-2 py-1"
+              >
+                Reset
+              </button>
+
+            </div>
+          </div>
+
+          <!-- RESPONDENT EXPANDABLE TABLE -->
+          <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden w-full">
+            <div class="overflow-x-auto w-full">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead class="bg-[#004B87] text-white text-[11px] font-bold uppercase tracking-wider">
+                  <tr>
+                    <th class="px-6 py-4 w-16 text-center">No.</th>
+                    <th class="px-6 py-4">Nama Perusahaan</th>
+                    <th class="px-6 py-4">Status Pengisian</th>
+                    <th class="px-6 py-4">Status Klien</th>
+                    <th class="px-6 py-4">Tanggal Pengisian</th>
+                  </tr>
+                </thead>
+                
+                <tbody v-if="isLoading" class="divide-y divide-slate-100 font-medium">
+                  <tr>
+                    <td colspan="5" class="px-6 py-12 text-center text-slate-400 animate-pulse font-semibold">
+                      Sinkronisasi master klien & status kuesioner...
+                    </td>
+                  </tr>
+                </tbody>
+
+                <tbody v-else-if="filteredRespondents.length === 0" class="divide-y divide-slate-100 font-medium">
+                  <tr>
+                    <td colspan="5" class="px-6 py-12 text-center text-slate-400 font-semibold">
+                      Tidak ada data perusahaan yang sesuai dengan filter.
+                    </td>
+                  </tr>
+                </tbody>
+
+                <tbody v-else v-for="(row, index) in filteredRespondents" :key="row.id" class="border-b border-slate-200">
+                  
+                  <!-- ROW DATA UTAMA -->
+                  <tr 
+                    @click="toggleRow(row.id)" 
+                    class="hover:bg-slate-50/80 cursor-pointer transition-colors font-semibold"
+                    :class="expandedRowId === row.id ? 'bg-slate-50/50' : ''"
+                  >
+                    <td class="px-6 py-4 text-center text-slate-400 font-bold">{{ index + 1 }}</td>
+                    <td class="px-6 py-4 text-[#004B87] font-bold whitespace-normal">{{ row.company }}</td>
+                    
+                    <td class="px-6 py-4">
+                      <span 
+                        :class="row.hasFilled ? 'bg-emerald-100 text-emerald-800 border-emerald-200' : 'bg-slate-100 text-slate-500 border-slate-200'" 
+                        class="px-2.5 py-1 rounded-full text-[10px] font-bold border uppercase inline-block whitespace-nowrap"
+                      >
+                        {{ row.hasFilled ? 'Sudah Mengisi' : 'Belum Mengisi' }}
+                      </span>
+                    </td>
+
+                    <td class="px-6 py-4">
+                      <span 
+                        :class="row.clientStatus === 'aktif' ? 'text-emerald-600 font-bold' : 'text-slate-400 font-medium'"
+                        class="text-[11px] capitalize whitespace-nowrap"
+                      >
+                        ● {{ row.clientStatus || 'aktif' }}
+                      </span>
+                    </td>
+
+                    <td class="px-6 py-4 text-slate-500 font-medium whitespace-nowrap">{{ row.date }}</td>
+                  </tr>
+
+                  <!-- ACCORDION CONTENT DETAIL PERTANYAAN -->
+                  <tr v-if="expandedRowId === row.id" class="bg-slate-50/80">
+                    <td colspan="5" class="p-6 border-b border-slate-200 shadow-inner whitespace-normal">
                       
-                      <!-- Sisi Kiri: Klasifikasi Dimensi -->
-                      <div class="lg:col-span-6 space-y-4">
-                        <h4 class="text-xs font-extrabold text-slate-400 uppercase tracking-wider mb-2">Klasifikasi</h4>
+                      <div class="flex flex-col lg:flex-row gap-8 w-full">
                         
-                        <div v-for="dim in row.dimensions" :key="dim.id" class="border-b border-slate-100 pb-3">
-                          <div 
-                            @click="toggleDimension(dim.id)" 
-                            class="flex items-center justify-between cursor-pointer group"
-                          >
-                            <div class="flex items-center gap-3">
-                              <div :class="dim.color" class="w-4 h-4 rounded shadow-sm shrink-0"></div>
-                              <span class="text-sm font-bold text-slate-700 group-hover:text-[#004B87] transition-colors">{{ dim.title }}</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                              <span class="text-sm font-extrabold text-slate-900">{{ dim.score }}</span>
-                              <svg 
-                                xmlns="http://www.w3.org/2000/svg" 
-                                fill="none" 
-                                viewBox="0 0 24 24" 
-                                stroke-width="2.5" 
-                                stroke="currentColor" 
-                                :class="expandedDimId === dim.id ? 'rotate-180 text-[#004B87]' : 'text-slate-400'"
-                                class="h-4 w-4 transition-transform duration-200"
-                              >
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                              </svg>
-                            </div>
+                        <!-- Sisi Kiri: Klasifikasi Dimensi (5 Dimensi / 25 Pertanyaan) -->
+                        <div class="flex-1 space-y-3">
+                          <div class="flex items-center justify-between mb-1">
+                            <h4 class="text-xs font-extrabold text-slate-500 uppercase tracking-wider">
+                              Klasifikasi Dimensi (25 Pertanyaan)
+                            </h4>
+                            <span v-if="!row.hasFilled" class="text-[10px] font-bold text-rose-500 bg-rose-50 px-2 py-0.5 rounded border border-rose-100">
+                              * Belum mengisi (Skor otomatis 0)
+                            </span>
                           </div>
+                          
+                          <div v-for="dim in row.dimensions" :key="dim.id" class="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
+                            <div 
+                              @click="toggleDimension(dim.id)" 
+                              class="flex items-center justify-between p-3.5 bg-slate-50 hover:bg-slate-100 cursor-pointer transition-colors"
+                            >
+                              <div class="flex items-center gap-3">
+                                <!-- Menggunakan inline style untuk menjamin warna bullet selalu tampil -->
+                                <div :style="{ backgroundColor: dim.color }" class="w-3.5 h-3.5 rounded-full shadow-sm shrink-0"></div>
+                                <span class="text-xs font-bold text-slate-700">{{ dim.title }}</span>
+                              </div>
+                              <div class="flex items-center gap-2 shrink-0">
+                                <span class="text-xs font-extrabold text-[#004B87] bg-white px-2 py-0.5 rounded border border-slate-200">
+                                  Rata-rata: {{ dim.score }} / 5.0
+                                </span>
+                                <svg 
+                                  xmlns="http://www.w3.org/2000/svg" 
+                                  fill="none" 
+                                  viewBox="0 0 24 24" 
+                                  stroke-width="2.5" 
+                                  stroke="currentColor" 
+                                  :class="expandedDimId === dim.id ? 'rotate-180 text-[#004B87]' : 'text-slate-400'"
+                                  class="h-4 w-4 transition-transform duration-200"
+                                >
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                </svg>
+                              </div>
+                            </div>
 
-                          <div v-if="expandedDimId === dim.id" class="mt-3 bg-slate-50 rounded-xl p-3 space-y-2 border border-slate-100 transition-all">
-                            <div v-for="q in dim.questions" :key="q.id" class="flex justify-between items-center text-xs font-medium text-slate-600">
-                              <span>Pertanyaan {{ q.id }}</span>
-                              <span class="font-bold text-slate-800">Skor: {{ q.value }} / 5</span>
+                            <div v-if="expandedDimId === dim.id" class="p-3 bg-white divide-y divide-slate-100 space-y-2 border-t border-slate-200">
+                              <div v-for="q in dim.questions" :key="q.id" class="pt-2 flex justify-between items-center text-xs font-medium text-slate-600">
+                                <span>Pertanyaan {{ q.id }}</span>
+                                <span class="font-bold text-slate-900 bg-slate-100 px-2 py-0.5 rounded">Skor: {{ q.value }} / 5</span>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
 
-                      <!-- PERBAIKAN SISI KANAN: Kotak Saran Terbatas & Bisa di-Scroll -->
-                      <div class="lg:col-span-6 flex flex-col h-full w-full">
-                        <div>
-                          <h4 class="text-xs font-extrabold text-slate-400 uppercase tracking-wider mb-2">Saran</h4>
-                          <div class="bg-slate-50 border border-slate-100 rounded-2xl p-4 shadow-sm w-full max-h-48 overflow-y-auto custom-scrollbar">
-                            <p class="text-sm text-slate-600 font-medium leading-relaxed italic whitespace-normal break-words">
-                              <span v-if="row.feedback && row.feedback.trim()">"{{ row.feedback }}"</span>
-                              <span v-else class="text-slate-400 font-normal">Tidak ada catatan saran tertulis yang dikirimkan oleh responden ini.</span>
+                        <!-- Sisi Kanan: Kotak Saran Responden -->
+                        <div class="flex-1 flex flex-col gap-2">
+                          <h4 class="text-xs font-extrabold text-slate-500 uppercase tracking-wider mb-1">
+                            Saran / Masukan Responden
+                          </h4>
+                          <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm w-full h-full min-h-[200px] overflow-y-auto custom-scrollbar">
+                            <p class="text-xs text-slate-700 font-medium leading-relaxed italic break-words whitespace-pre-wrap">
+                              <span v-if="row.hasFilled && row.feedback && row.feedback.trim()">"{{ row.feedback }}"</span>
+                              <span v-else-if="row.hasFilled" class="text-slate-400 font-normal">Tidak ada catatan saran tertulis dari responden.</span>
+                              <span v-else class="text-slate-400 font-normal">Klien ini belum melakukan pengisian kuesioner.</span>
                             </p>
                           </div>
                         </div>
+
                       </div>
 
-                    </div>
-                  </td>
-                </tr>
+                    </td>
+                  </tr>
 
-                <!-- TOMBOL ACTION PANAH DROPDOWN BAWAH ROW -->
-                <tr v-if="expandedRowId !== row.id">
-                  <td colspan="5" class="p-0">
-                    <div @click="toggleRow(row.id)" class="w-full bg-blue-50/30 hover:bg-blue-50/70 text-slate-400 hover:text-[#004B87] flex items-center justify-center py-1 transition-colors cursor-pointer border-b border-slate-200">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="h-4 w-4"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
-                    </div>
-                  </td>
-                </tr>
-                <tr v-else>
-                  <td colspan="5" class="p-0">
-                    <div @click="toggleRow(null)" class="w-full bg-sky-100/40 hover:bg-sky-100/70 text-[#004B87] flex items-center justify-center py-1 transition-colors cursor-pointer border-b border-slate-200">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="h-4 w-4"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" /></svg>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                  <!-- ACCORDION DOWN ARROW -->
+                  <tr v-if="expandedRowId !== row.id">
+                    <td colspan="5" class="p-0">
+                      <div @click="toggleRow(row.id)" class="w-full bg-blue-50/30 hover:bg-blue-50/70 text-slate-400 hover:text-[#004B87] flex items-center justify-center py-1.5 transition-colors cursor-pointer border-b border-slate-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="h-4 w-4"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr v-else>
+                    <td colspan="5" class="p-0">
+                      <div @click="toggleRow(null)" class="w-full bg-sky-100/40 hover:bg-sky-100/70 text-[#004B87] flex items-center justify-center py-1.5 transition-colors cursor-pointer border-b border-slate-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="h-4 w-4"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" /></svg>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
+
         </div>
-      </main>
+      </div>
+
     </div>
   </div>
 </template>
@@ -268,40 +378,82 @@ const supabase = useSupabaseClient()
 // Layout States
 const isSidebarOpen = ref(true)
 const isLoading = ref(true)
+
+// Toolbar Filter States
 const searchQuery = ref('')
+const selectedFillStatus = ref('')
+const selectedDateSort = ref('terbaru')
+const hideInactive = ref(false)
 
 // Accordion States
 const expandedRowId = ref(null)
 const expandedDimId = ref(null)
 
-// Raw Database Pool
-const respondentsDataList = ref([])
-const totalCount = ref(0)
-const summaryCounts = ref({ PLTA: 0, PDAM: 0, Industri: 0, PihakBerkepentingan: 0 })
+// Data Pools
+const allClientsList = ref([])
+const combinedRespondentsList = ref([])
 
-// Computed stat-cards array
-const summaryCards = computed(() => [
-  { name: 'PDAM', count: summaryCounts.value.PDAM },
-  { name: 'PLTA', count: summaryCounts.value.PLTA },
-  { name: 'Industri', count: summaryCounts.value.Industri },
-  { name: 'Pihak Berkepentingan', count: summaryCounts.value.PihakBerkepentingan }
-])
+// Status Summary Counts
+const statusCounts = computed(() => {
+  let filled = 0
+  let unfilled = 0
+  let active = 0
+  let inactive = 0
 
-// Filter Search Query Functionality
-const filteredRespondents = computed(() => {
-  if (!searchQuery.value.trim()) return respondentsDataList.value
-  const query = searchQuery.value.toLowerCase().trim()
-  return respondentsDataList.value.filter(res => 
-    res.company.toLowerCase().includes(query) || 
-    res.mainCat.toLowerCase().includes(query) || 
-    res.subCat.toLowerCase().includes(query)
-  )
+  allClientsList.value.forEach(c => {
+    if (c.status === 'aktif') active++
+    else inactive++
+  })
+
+  combinedRespondentsList.value.forEach(r => {
+    if (r.hasFilled) filled++
+    else unfilled++
+  })
+
+  return { filled, unfilled, active, inactive }
 })
 
-// Toggle Accordion Functions
+// Filter & Sort Logic
+const filteredRespondents = computed(() => {
+  let result = combinedRespondentsList.value.filter(item => {
+    const matchesSearch = !searchQuery.value || 
+      item.company.toLowerCase().includes(searchQuery.value.toLowerCase())
+
+    let matchesFillStatus = true
+    if (selectedFillStatus.value === 'sudah') matchesFillStatus = item.hasFilled
+    if (selectedFillStatus.value === 'belum') matchesFillStatus = !item.hasFilled
+
+    let matchesActive = true
+    if (hideInactive.value) matchesActive = item.clientStatus === 'aktif'
+
+    return matchesSearch && matchesFillStatus && matchesActive
+  })
+
+  result.sort((a, b) => {
+    const timeA = a.rawDate ? new Date(a.rawDate).getTime() : 0
+    const timeB = b.rawDate ? new Date(b.rawDate).getTime() : 0
+
+    if (selectedDateSort.value === 'terbaru') {
+      return timeB - timeA
+    } else {
+      return timeA - timeB
+    }
+  })
+
+  return result
+})
+
+const resetFilters = () => {
+  searchQuery.value = ''
+  selectedFillStatus.value = ''
+  selectedDateSort.value = 'terbaru'
+  hideInactive.value = false
+}
+
+// Toggle Accordions
 const toggleRow = (rowId) => {
   expandedRowId.value = expandedRowId.value === rowId ? null : rowId
-  expandedDimId.value = null // reset sub-dropdown
+  expandedDimId.value = null
 }
 
 const toggleDimension = (dimId) => {
@@ -317,107 +469,100 @@ const formatDate = (dateString) => {
   })
 }
 
-// FETCH AND CLIENT-SIDE MAPPING DATA
-const fetchRespondentsData = async () => {
+// FETCH DATA & COMBINE MASTER CLIENTS + RESPONDENT RESPONSES
+const fetchData = async () => {
   try {
     isLoading.value = true
-    
-    const { data: responses, error: resError } = await supabase
+
+    const { data: clients, error: clientErr } = await supabase
+      .from('clients')
+      .select('*')
+      .order('id', { ascending: true })
+
+    if (clientErr) throw clientErr
+    allClientsList.value = clients || []
+
+    const { data: responses, error: resErr } = await supabase
       .from('questionnaire_responses')
       .select('id, answers, feedback, created_at, respondent_id')
-      .order('created_at', { ascending: false })
 
-    if (resError) throw resError
+    if (resErr) throw resErr
 
-    const { data: respondents, error: respError } = await supabase
+    const { data: respondents, error: respErr } = await supabase
       .from('respondents')
-      .select('id, company_name, category, sub_category')
+      .select('id, company_name')
 
-    if (respError) throw respError
+    if (respErr) throw respErr
 
-    if (responses) {
-      totalCount.value = responses.length
+    // Pemetaan 5 Dimensi (Menggunakan Nilai Hex Warna Agar Bullet Selalu Tampil)
+    const mapping = {
+      kepuasan: { title: 'Kepuasan Pelanggan', list: [1, 2, 3, 4, 5], color: '#10b981' },
+      kepercayaan: { title: 'Kepercayaan', list: [6, 7, 8, 9, 10], color: '#06b6d4' },
+      keterikatan: { title: 'Keterikatan Pelanggan', list: [11, 12, 13, 14, 15], color: '#6366f1' },
+      permintaan: { title: 'Permintaan Ulang', list: [16, 17, 18, 19, 20], color: '#f59e0b' },
+      wom: { title: 'Word of Mouth Behavior', list: [21, 22, 23, 24, 25], color: '#d946ef' }
+    }
 
-      const counts = { PLTA: 0, PDAM: 0, Industri: 0, PihakBerkepentingan: 0 }
+    combinedRespondentsList.value = (clients || []).map(client => {
+      const matchRespIdent = respondents ? respondents.find(r => r.company_name?.toLowerCase().trim() === client.company_name?.toLowerCase().trim()) : null
+      const matchResponse = matchRespIdent && responses ? responses.find(res => res.respondent_id === matchRespIdent.id) : null
 
-      const mapping = {
-        kepuasan: { title: 'Kepuasan Pelanggan', list: [1, 2, 3, 4, 5], color: 'bg-green-400' },
-        kepercayaan: { title: 'Kepercayaan', list: [6, 7, 8, 9, 10], color: 'bg-cyan-400' },
-        keterikatan: { title: 'Keterikatan Pelanggan', list: [11, 12, 13, 14, 15], color: 'bg-indigo-400' },
-        permintaan: { title: 'Permintaan Ulang', list: [16, 17, 18, 19, 20], color: 'bg-yellow-300' },
-        wom: { title: 'Word of Mouth Behavior', list: [21, 22, 23, 24, 25], color: 'bg-magenta-400 bg-fuchsia-400' }
-      }
+      const hasFilled = !!matchResponse
+      const ans = matchResponse ? (matchResponse.answers || {}) : {}
 
-      respondentsDataList.value = responses.map(item => {
-        const matchRes = respondents ? respondents.find(r => r.id === item.respondent_id) : null
-        const r = matchRes || {}
+      const computedDimensions = Object.keys(mapping).map(key => {
+        const dimInfo = mapping[key]
+        let sum = 0
+        let count = 0
+        const questionsDetail = []
 
-        let subCatText = r.sub_category ? String(r.sub_category).trim() : '-'
-        let mainCatText = r.category ? String(r.category).trim() : 'Pemanfaat'
-
-        // Accumulate Box Counts
-        if (subCatText === 'PLTA') counts.PLTA++
-        else if (subCatText === 'PDAM') counts.PDAM++
-        else if (subCatText === 'Industri' || subCatText === 'Swasta') counts.Industri++
-        
-        if (mainCatText === 'Pihak yang Berkepentingan' || subCatText === 'Instansi Pemerintah') {
-          counts.PihakBerkepentingan++
-          mainCatText = 'Pihak yang Berkepentingan'
-          subCatText = '-'
-        }
-
-        // Calculate dimensions score arrays per single respondent row
-        const ans = item.answers || {}
-        const computedDimensions = Object.keys(mapping).map(key => {
-          const dimInfo = mapping[key]
-          let sum = 0
-          let count = 0
-          const questionsDetail = []
-
-          dimInfo.list.forEach(qId => {
+        dimInfo.list.forEach(qId => {
+          if (hasFilled) {
             const val = ans[qId] !== undefined ? ans[qId] : ans[String(qId)]
             if (val !== undefined && val !== null) {
               sum += Number(val)
               count++
-              questionsDetail.push({ id: qId, value: val })
+              questionsDetail.push({ id: qId, value: Number(val) })
             } else {
               questionsDetail.push({ id: qId, value: 0 })
             }
-          })
-
-          const average = count > 0 ? (sum / count).toFixed(1) : '0.0'
-
-          return {
-            id: key,
-            title: dimInfo.title,
-            color: dimInfo.color,
-            score: average,
-            questions: questionsDetail
+          } else {
+            questionsDetail.push({ id: qId, value: 0 })
           }
         })
 
+        const average = hasFilled && count > 0 ? (sum / count).toFixed(1) : '0.0'
+
         return {
-          id: item.id,
-          company: r.company_name || 'No Name',
-          mainCat: mainCatText,
-          subCat: subCatText,
-          date: formatDate(item.created_at),
-          feedback: item.feedback,
-          dimensions: computedDimensions
+          id: key,
+          title: dimInfo.title,
+          color: dimInfo.color,
+          score: average,
+          questions: questionsDetail
         }
       })
 
-      summaryCounts.value = counts
-    }
+      return {
+        id: client.id,
+        company: client.company_name,
+        clientStatus: client.status || 'aktif',
+        hasFilled: hasFilled,
+        rawDate: matchResponse ? matchResponse.created_at : null,
+        date: matchResponse ? formatDate(matchResponse.created_at) : 'Belum Mengisi',
+        feedback: matchResponse ? matchResponse.feedback : '',
+        dimensions: computedDimensions
+      }
+    })
+
   } catch (err) {
-    console.error('Failed to load respondent list data:', err.message)
+    console.error('Gagal memuat data responden:', err.message)
   } finally {
     isLoading.value = false
   }
 }
 
 onMounted(() => {
-  fetchRespondentsData()
+  fetchData()
   if (window.innerWidth < 1024) {
     isSidebarOpen.value = false
   }

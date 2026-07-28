@@ -28,14 +28,26 @@
         </button>
       </div>
 
+      <!-- Navigation Menu -->
       <nav class="flex-1 px-4 space-y-2 mt-4">
         <NuxtLink 
           to="/admin/dashboard" 
-          :class="route.path === '/admin/dashboard' ? 'bg-blue-50 text-[#004B87] font-bold border-l-4 border-[#004B87]' : 'text-slate-600 hover:bg-slate-50 font-medium'"
+          :class="route.path.includes('/admin/dashboard') || route.path.includes('/admin/overview') ? 'bg-blue-50 text-[#004B87] font-bold border-l-4 border-[#004B87]' : 'text-slate-600 hover:bg-slate-50 font-medium'"
           class="flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2h-2a2 2 0 01-2-2v-2z" /></svg>
           <span>Overview</span>
+        </NuxtLink>
+        
+        <NuxtLink 
+          to="/admin/klien" 
+          :class="route.path === '/admin/klien' ? 'bg-blue-50 text-[#004B87] font-bold border-l-4 border-[#004B87]' : 'text-slate-600 hover:bg-slate-50 font-medium'"
+          class="flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+          <span>Data Klien</span>
         </NuxtLink>
 
         <NuxtLink 
@@ -43,23 +55,34 @@
           :class="route.path === '/admin/respondents' ? 'bg-blue-50 text-[#004B87] font-bold border-l-4 border-[#004B87]' : 'text-slate-600 hover:bg-slate-50 font-medium'"
           class="flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>
           <span>Respondent Data</span>
         </NuxtLink>
 
         <NuxtLink 
-          to="/admin/analytics" 
-          :class="route.path === '/admin/analytics' ? 'bg-blue-50 text-[#004B87] font-bold border-l-4 border-[#004B87]' : 'text-slate-600 hover:bg-slate-50 font-medium'"
+          to="/admin/questions" 
+          :class="route.path === '/admin/questions' ? 'bg-blue-50 text-[#004B87] font-bold border-l-4 border-[#004B87]' : 'text-slate-600 hover:bg-slate-50 font-medium'"
           class="flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012-2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
-          <span>Analytics</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-5 w-5 shrink-0">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
+          </svg>
+          <span>Manage Questions</span>
         </NuxtLink>
       </nav>
 
       <div class="p-4 border-t border-slate-200">
         <button @click="handleLogout" class="flex items-center space-x-3 px-4 py-3 w-full text-slate-600 hover:text-red-600 hover:bg-red-50 font-medium rounded-xl transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 11-6 0v-1m6-10V5a3 3 0 11-6 0v-1" /></svg>
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke-width="2" 
+            stroke="currentColor" 
+            class="h-5 w-5 shrink-0"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
+          </svg>
           <span>Logout</span>
         </button>
       </div>
@@ -69,20 +92,16 @@
     <div class="flex-1 flex flex-col min-w-0 bg-[#F8FAFC] overflow-hidden">
       
       <!-- NAVBAR HEADER -->
-      <header class="bg-white border-b border-slate-200 h-16 flex items-center justify-between px-4 sm:px-8 shrink-0 w-full relative z-10">
+      <header class="bg-white border-b border-slate-200 h-16 flex items-center justify-between px-4 sm:px-8 shrink-0 sticky top-0 z-20">
         <div class="flex items-center space-x-4">
           <button @click="isSidebarOpen = !isSidebarOpen" class="text-slate-500 hover:text-[#004B87] transition-colors focus:outline-none bg-white border border-slate-200 hover:bg-slate-50 p-1.5 rounded-lg shadow-sm">
             <svg v-if="isSidebarOpen" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" /></svg>
             <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
           </button>
-          <h1 class="hidden sm:block text-lg font-bold text-[#004B87]">Perum Jasa Tirta I</h1>
+          <h1 class="text-base sm:text-xl font-extrabold text-slate-800 tracking-tight">Perum Jasa Tirta 1</h1>
         </div>
 
         <div class="flex items-center space-x-6 sm:space-x-8">
-          <nav class="hidden md:flex items-center space-x-6 text-sm font-semibold h-16">
-            <NuxtLink to="/admin/dashboard" class="text-[#004B87] border-b-2 border-[#004B87] h-full flex items-center px-1">Dashboard</NuxtLink>
-          </nav>
-          
           <div class="flex items-center space-x-3 border-l border-slate-200 pl-6 h-9">
             <div class="hidden sm:block text-right">
               <p class="text-sm font-bold text-slate-900 leading-none">Admin User Profile</p>
@@ -99,30 +118,125 @@
       <div class="flex-1 overflow-auto p-4 sm:p-8 custom-scrollbar">
         <div class="max-w-7xl mx-auto space-y-6">
           
-          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Data Responden</h2>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Dashboard Utama</h2>
 
-          <!-- AREA DIAGRAM BATANG ATAS -->
-          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm max-w-xl">
-            <div class="flex items-end justify-around h-48 pt-6 px-2 w-full border-b border-slate-100 pb-0">
-              <div v-for="cat in categoryBreakdown" :key="cat.name" class="flex flex-col items-center flex-1 mx-1 h-full justify-end relative">
-                
-                <span class="text-xs font-bold text-slate-700 mb-2">{{ cat.count }}</span>
-                
-                <div 
-                  class="w-10 rounded-t-sm shadow-sm transition-all duration-700 min-h-[4px]"
-                  :style="{ 
-                    height: (totalResponden > 0 ? (cat.count / totalResponden) * 120 : 0) + 'px',
-                    backgroundColor: cat.colorHex 
-                  }"
-                ></div>
-                
-                <span class="text-[10px] sm:text-xs font-bold text-slate-500 text-center mt-3 truncate w-16" :title="cat.name">
-                  {{ cat.name }}
-                </span>
+          <!-- BARIS ATAS: DIAGRAM BATANG & PANEL RINGKASAN -->
+          <div class="flex flex-col md:flex-row gap-4 md:gap-6 items-stretch w-full">
+            
+            <!-- 1. AREA DIAGRAM BATANG -->
+            <div class="w-full md:w-2/3 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between min-w-0">
+              <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider">Total Responden per-Kategori</h3>
+              <div class="flex items-end justify-around h-44 pt-4 px-2 w-full border-b border-slate-100 pb-0">
+                <div v-for="cat in categoryBreakdown" :key="cat.name" class="flex flex-col items-center flex-1 mx-1 h-full justify-end relative">
+                  
+                  <span class="text-xs font-bold text-slate-700 mb-1.5">{{ cat.count }}</span>
+                  
+                  <div 
+                    class="w-10 md:w-12 rounded-t-sm shadow-sm transition-all duration-700 min-h-[4px]"
+                    :style="{ 
+                      height: (totalResponden > 0 ? (cat.count / totalResponden) * 110 : 0) + 'px',
+                      backgroundColor: cat.colorHex 
+                    }"
+                  ></div>
+                  
+                  <span class="text-[10px] font-bold text-slate-500 text-center mt-2.5 truncate w-14 sm:w-20" :title="cat.name">
+                    {{ cat.name }}
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
 
+            <!-- 2. PANEL RINGKASAN SURVEI (FONT DAN HEADING DISAMAKAN DENGAN KIRI) -->
+            <div class="w-full md:w-1/3 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between min-w-0">
+              <div>
+                <!-- Header Panel disamakan persis ukurannya dengan Kiri -->
+               <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider">Ringkasan Survei</h3>
+
+                <!-- Konten Metrik -->
+                <div class="space-y-3 text-xs mt-3">
+                  
+                  <!-- Total Responden & Nilai Kepuasan -->
+                  <div class="flex gap-2.5">
+                    <div class="flex-1 bg-slate-50 p-2.5 rounded-xl flex flex-col justify-center">
+                      <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total Responden</p>
+                      <div class="flex items-center gap-1.5 mt-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4 text-slate-700">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6 0 3.375 3.375 0 0 1 6 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+                        </svg>
+                        <span class="text-sm font-bold text-slate-800">{{ totalResponden }}</span>
+                      </div>
+                    </div>
+
+                    <div class="flex-1 bg-slate-50 p-2.5 rounded-xl flex flex-col justify-center">
+                      <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Nilai Kepuasan</p>
+                      <div class="flex items-center gap-1.5 mt-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-4 h-4 text-amber-500 shrink-0">
+                          <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="text-sm font-bold text-emerald-600">{{ overallSatisfaction }}/5.0</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Indikator Tertinggi -->
+                  <div class="flex items-center justify-between p-2.5 bg-emerald-50/70 rounded-xl">
+                    <div class="min-w-0 pr-2">
+                      <p class="text-[10px] font-bold text-emerald-700 uppercase tracking-wider flex items-center gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3.5 h-3.5 text-emerald-600 shrink-0">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 0 0 3-3V8.25a3 3 0 0 0-3-3H6.75a3 3 0 0 0-3 3v7.5a3 3 0 0 0 3 3m9 0v-3.375c0-.621-.504-1.125-1.125-1.125h-6.75c-.621 0-1.125.504-1.125 1.125v3.375m9 0h1.125c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H18M6.75 18.75H5.625a1.125 1.125 0 0 1-1.125-1.125v-1.5c0-.621.504-1.125 1.125-1.125H6.75" />
+                        </svg>
+                        <span>Indikator Tertinggi</span>
+                      </p>
+                      <p class="font-bold text-slate-500 mt-0.5 truncate text-[11px]" :title="highestIndicator.title">{{ highestIndicator.title }}</p>
+                    </div>
+
+                    <!-- Angka Skor Super Tebal Solid -->
+                    <span 
+                      class="text-emerald-600 text-base shrink-0 px-2 py-0.5" 
+                      style="font-weight: 700; -webkit-text-stroke: 0.5px #059669;"
+                    >
+                      {{ highestIndicator.score }}
+                    </span>
+                  </div>
+
+                  <!-- Indikator Terendah -->
+                  <div class="flex items-center justify-between p-2.5 bg-rose-50/70 rounded-xl">
+                    <div class="min-w-0 pr-2">
+                      <p class="text-[10px] font-bold text-rose-700 uppercase tracking-wider flex items-center gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3.5 h-3.5 text-rose-600 shrink-0">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6 9 12.75l4.286-4.286a11.948 11.948 0 0 1 8.5 8.5l-2.001.001M21.75 18v-5.25m0 5.25-5.25-5.25" />
+                        </svg>
+                        <span>Indikator Terendah</span>
+                      </p>
+                      <p class="font-bold text-slate-500 mt-0.5 truncate text-[11px]" :title="lowestIndicator.title">{{ lowestIndicator.title }}</p>
+                    </div>
+
+                    <!-- Angka Skor Super Tebal Solid -->
+                    <span 
+                      class="text-rose-600 text-base shrink-0 px-2 py-0.5" 
+                      style="font-weight: 700; -webkit-text-stroke: 0.5px #e11d48;"
+                    >
+                      {{ lowestIndicator.score }}
+                    </span>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- Footer Tanggal (Samakan Gaya Text) -->
+              <div class="pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-medium mt-3">
+                <span class="flex items-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5 text-slate-400">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+                  </svg>
+                  <span>Terakhir Update:</span>
+                </span>
+                <span class="font-bold text-slate-700">{{ lastUpdatedDate }}</span>
+              </div>
+            </div>
+
+          </div>
+          
           <!-- 5 KARTU METRIK DIMENSI -->
           <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-6">
             <div v-for="card in categoryCards" :key="card.id" class="bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col justify-between overflow-hidden hover:shadow-md transition-shadow">
@@ -154,12 +268,15 @@
 
           <!-- TABLE RECENT SUBMISSIONS -->
           <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden mt-6">
-            <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+            <div class="p-5 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider">Recent Submissions</h3>
               
-              <div class="flex items-center space-x-2">
-                <!-- PERBAIKAN SEARCH BAR: Pointer-events-none pada ikon dan padding lebih lebar -->
-                <div class="relative w-44 sm:w-56">
+              <!-- Fungsional Filter Kategori & Tanggal -->
+             <!-- Filter Dropdown & Search -->
+              <div class="flex flex-wrap items-center gap-2">
+                
+                <!-- Search Input -->
+                <div class="relative w-full sm:w-48">
                   <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4 text-slate-400">
                       <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.602 10.602Z" />
@@ -167,25 +284,43 @@
                   </div>
                   <input v-model="searchFilter" type="text" placeholder="Search respondent..." class="block w-full pl-9 pr-3 py-1.5 border border-slate-200 rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-[#004B87]" />
                 </div>
-                <button class="bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600 font-bold py-1.5 px-3 rounded-md flex items-center space-x-1 text-xs transition-colors">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-3.5 w-3.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z" /></svg>
-                  <span>Filters</span>
-                </button>
+
+                <!-- Dropdown Kategori -->
+                <select 
+                  v-model="selectedCategory" 
+                  class="border border-slate-200 rounded-md px-3 py-1.5 text-xs font-bold text-slate-700 bg-white focus:ring-2 focus:ring-[#004B87] outline-none cursor-pointer min-w-[140px]"
+                >
+                  <option value="">Semua Kategori</option>
+                  <option value="PLTA">PLTA</option>
+                  <option value="PDAM">PDAM</option>
+                  <option value="Industri">Industri</option>
+                  <option value="Pihak yang Berkepentingan">Pihak Berkepentingan</option>
+                </select>
+
+                <!-- Dropdown Bulan & Tahun -->
+                <select 
+                  v-model="selectedMonthYear" 
+                  class="border border-slate-200 rounded-md px-3 py-1.5 text-xs font-bold text-slate-700 bg-white focus:ring-2 focus:ring-[#004B87] outline-none cursor-pointer min-w-[130px]"
+                >
+                  <option value="">Semua Waktu</option>
+                  <option v-for="date in availableDates" :key="date" :value="date">{{ date }}</option>
+                </select>
+
               </div>
             </div>
 
-            <!-- PERBAIKAN TABEL: Kolom Action Dihapus Sepenuhnya -->
-            <div class="overflow-x-auto">
+            <!-- TABEL DENGAN HEADER BIRU SESUAI GAMBAR -->
+            <div class="overflow-x-auto p-0 m-0">
               <table class="w-full text-left text-xs whitespace-nowrap">
-                <thead class="bg-slate-50 text-slate-400 font-bold uppercase border-b border-slate-100">
+                <thead class="bg-[#004B87] text-white font-bold uppercase">
                   <tr>
-                    <th class="px-6 py-3">Company Name</th>
-                    <th class="px-6 py-3">Main Category</th>
-                    <th class="px-6 py-3">Sub-Category</th>
-                    <th class="px-6 py-3">Submission Date</th>
+                    <th class="px-6 py-4">Company Name</th>
+                    <th class="px-6 py-4">Main Category</th>
+                    <th class="px-6 py-4">Sub-Category</th>
+                    <th class="px-6 py-4">Submission Date</th>
                   </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-100 font-semibold text-slate-700">
+                <tbody class="divide-y divide-slate-100 font-medium text-slate-700">
                   <tr v-if="isLoading">
                     <td colspan="4" class="px-6 py-8 text-center text-slate-400 animate-pulse">
                       Synchronizing with data metrics pool...
@@ -242,6 +377,7 @@ const searchFilter = ref('')
 
 const tableData = ref([])
 const totalResponden = ref(0)
+const lastUpdatedDate = ref('-')
 const subCategoryCounts = ref({ PLTA: 0, PDAM: 0, Industri: 0, PihakBerkepentingan: 0 })
 
 const categoryCards = ref([
@@ -259,21 +395,86 @@ const categoryBreakdown = computed(() => [
   { name: 'Pihak Berkepentingan', count: subCategoryCounts.value.PihakBerkepentingan, colorHex: '#DC80F7' }
 ])
 
+// KOMPUTASI METRIK
+const overallSatisfaction = computed(() => {
+  const scores = categoryCards.value.map(c => Number(c.score))
+  const sum = scores.reduce((acc, curr) => acc + curr, 0)
+  return scores.length > 0 ? (sum / scores.length).toFixed(2) : '0.00'
+})
+
+const highestIndicator = computed(() => {
+  if (!categoryCards.value.length) return { title: '-', score: '0.00' }
+  const sorted = [...categoryCards.value].sort((a, b) => Number(b.score) - Number(a.score))
+  return { title: sorted[0].title, score: sorted[0].score }
+})
+
+const lowestIndicator = computed(() => {
+  if (!categoryCards.value.length) return { title: '-', score: '0.00' }
+  const sorted = [...categoryCards.value].sort((a, b) => Number(a.score) - Number(b.score))
+  return { title: sorted[0].title, score: sorted[0].score }
+})
+
+// State untuk Filter Dropdown
+const selectedCategory = ref('')
+const selectedMonthYear = ref('')
+
+// Computed List Bulan & Tahun Unik
+const availableDates = computed(() => {
+  if (!tableData.value.length) return []
+  const dates = tableData.value.map(item => {
+    const parts = (item.date || '').split(' ')
+    if (parts.length === 3) return `${parts[1]} ${parts[2]}`
+    return item.date
+  }).filter(Boolean)
+  return [...new Set(dates)]
+})
+
+// Logika Filtering yang Diperbaiki & Akurat
 const filteredTableData = computed(() => {
-  if (!searchFilter.value.trim()) return tableData.value
-  const query = searchFilter.value.toLowerCase().trim()
-  return tableData.value.filter(item => 
-    item.company.toLowerCase().includes(query) || 
-    item.mainCat.toLowerCase().includes(query) || 
-    item.subCat.toLowerCase().includes(query)
-  )
+  let result = tableData.value
+
+  // 1. Filter Search Text
+  if (searchFilter.value.trim()) {
+    const query = searchFilter.value.toLowerCase().trim()
+    result = result.filter(item => 
+      (item.company || '').toLowerCase().includes(query) || 
+      (item.mainCat || '').toLowerCase().includes(query) || 
+      (item.subCat || '').toLowerCase().includes(query)
+    )
+  }
+
+  // 2. Filter Dropdown Kategori
+  if (selectedCategory.value) {
+    const target = selectedCategory.value.toLowerCase().trim()
+    
+    result = result.filter(item => {
+      const main = (item.mainCat || '').toLowerCase().trim()
+      const sub = (item.subCat || '').toLowerCase().trim()
+
+      if (target === 'pihak yang berkepentingan') {
+        return main.includes('pihak') || main.includes('berkepentingan') || sub === 'none'
+      }
+      if (target === 'industri') {
+        return sub.includes('industri') || sub.includes('swasta')
+      }
+      // Untuk PLTA dan PDAM
+      return sub.includes(target)
+    })
+  }
+
+  // 3. Filter Dropdown Bulan & Tahun
+  if (selectedMonthYear.value) {
+    result = result.filter(item => (item.date || '').includes(selectedMonthYear.value))
+  }
+
+  return result
 })
 
 const formatDate = (dateString) => {
   if (!dateString) return '-'
-  return new Date(dateString).toLocaleDateString('en-GB', {
+  return new Date(dateString).toLocaleDateString('id-ID', {
     day: 'numeric',
-    month: 'short',
+    month: 'long',
     year: 'numeric'
   })
 }
@@ -303,13 +504,26 @@ const calculateDashboardMetrics = (responses, respondentsList) => {
     const matchRes = respondentsList ? respondentsList.find(r => r.id === res.respondent_id) : null
     const r = matchRes || {}
     
-    let mainCat = r.category ? String(r.category).trim() : ''
-    let subCat = r.sub_category ? String(r.sub_category).trim() : ''
+    let mainCat = r.category ? String(r.category).toLowerCase().trim() : ''
+    let subCat = r.sub_category ? String(r.sub_category).toLowerCase().trim() : ''
 
-    if (subCat === 'PLTA') counts.PLTA++
-    else if (subCat === 'PDAM') counts.PDAM++
-    else if (subCat === 'Industri' || subCat === 'Swasta') counts.Industri++
-    else if (subCat === 'Instansi Pemerintah' || mainCat === 'Pihak yang Berkepentingan') counts.PihakBerkepentingan++
+    if (subCat.includes('plta')) {
+      counts.PLTA++
+    } else if (subCat.includes('pdam')) {
+      counts.PDAM++
+    } else if (subCat.includes('industri') || subCat.includes('swasta')) {
+      counts.Industri++
+    } else if (
+      subCat.includes('pemerintah') || 
+      subCat.includes('pyb') || 
+      mainCat.includes('pihak') || 
+      mainCat.includes('berkepentingan') || 
+      mainCat.includes('pyb')
+    ) {
+      counts.PihakBerkepentingan++
+    } else {
+      counts.PihakBerkepentingan++
+    }
 
     const ans = res.answers || {}
     Object.keys(mapping).forEach(catId => {
@@ -352,6 +566,10 @@ const fetchDashboardData = async () => {
     if (responses) {
       totalResponden.value = responses.length
 
+      if (responses.length > 0 && responses[0].created_at) {
+        lastUpdatedDate.value = formatDate(responses[0].created_at)
+      }
+
       tableData.value = responses.map(item => {
         const r = respondentsList ? respondentsList.find(res => res.id === item.respondent_id) : null
         const resObj = r || {}
@@ -360,11 +578,11 @@ const fetchDashboardData = async () => {
         let subCatText = resObj.sub_category ? String(resObj.sub_category).trim() : 'None'
         let mainCatText = resObj.category ? String(resObj.category).trim() : 'Pemanfaat'
 
-        if (subCatText === 'PLTA') subColorBadge = 'bg-blue-50 text-blue-700 border border-blue-100'
-        if (subCatText === 'PDAM') subColorBadge = 'bg-cyan-50 text-cyan-700 border border-cyan-100'
-        if (subCatText === 'Industri' || subCatText === 'Swasta') subColorBadge = 'bg-indigo-50 text-indigo-700 border border-indigo-100'
+        if (subCatText.toLowerCase().includes('plta')) subColorBadge = 'bg-blue-50 text-blue-700 border border-blue-100'
+        else if (subCatText.toLowerCase().includes('pdam')) subColorBadge = 'bg-cyan-50 text-cyan-700 border border-cyan-100'
+        else if (subCatText.toLowerCase().includes('industri') || subCatText.toLowerCase().includes('swasta')) subColorBadge = 'bg-indigo-50 text-indigo-700 border border-indigo-100'
         
-        if (mainCatText === 'Pihak yang Berkepentingan' || subCatText === 'Instansi Pemerintah') {
+        if (mainCatText.toLowerCase().includes('berkepentingan') || mainCatText.toLowerCase().includes('pyb') || subCatText.toLowerCase().includes('pemerintah')) {
           mainCatText = 'Pihak yang Berkepentingan'
           subCatText = 'None'
           subColorBadge = 'bg-slate-100 text-slate-500'
