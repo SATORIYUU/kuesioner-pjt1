@@ -93,4 +93,4 @@ NODE_ENV=development
 ```
 
 ---
-*Dibuat oleh [Nama Anda]*
+*Dibuat oleh Satrio Akbar*
