@@ -78,14 +78,14 @@ Buat file bernama `.env` di direktori utama proyek Anda dan lengkapi variabel li
 
 ```env
 # Supabase Configuration
-SUPABASE_URL="https://bdyqkegtkwovcbtoisvd.supabase.co"
-SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJkeXFrZWd0a3dvdmNidG9pc3ZkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwNDA1NDUsImV4cCI6MjA5NjYxNjU0NX0.jkcJ36aAVbWhuyPSpDelauVoGeEwYeVqdek5v572gV8"
+SUPABASE_URL=https://your-project-id.supabase.co
+SUPABASE_KEY=your_supabase_anon_key_here
 
 # Database Configuration (MySQL)
 DB_HOST=localhost
 DB_PORT=3306
 DB_USER=root
-DB_PASSWORD=admin123
+DB_PASSWORD=your_password
 DB_NAME=kuesioner_db
 
 # App Configuration
