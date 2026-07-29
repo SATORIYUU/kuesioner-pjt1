@@ -46,8 +46,8 @@ Pastikan Anda telah menginstal **Node.js** (versi 18.x atau lebih baru) dan **np
 
 ### 2. Clone Repositori
 ```bash
-git clone https://github.com/USERNAME_ANDA/NAMA_REPOSITORI.git
-cd NAMA_REPOSITORI
+git clone https:/https://github.com/SATORIYUU/kuesioner-pjt1.git
+cd kuisioner-pjt1
 ```
 
 ### 3. Install Dependensi
