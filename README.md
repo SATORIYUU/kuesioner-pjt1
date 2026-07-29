@@ -79,7 +79,7 @@ Buat file bernama `.env` di direktori utama proyek Anda dan lengkapi variabel li
 ```env
 # Supabase Configuration
 SUPABASE_URL=https://your-supabase-project-id.supabase.co
-SUPABASE_KEY=your-supabase-anon-key
+SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJkeXFrZWd0a3dvdmNidG9pc3ZkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwNDA1NDUsImV4cCI6MjA5NjYxNjU0NX0.jkcJ36aAVbWhuyPSpDelauVoGeEwYeVqdek5v572gV8"
 
 # Database Configuration (MySQL)
 DB_HOST=localhost
