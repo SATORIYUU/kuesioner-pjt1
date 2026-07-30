@@ -1,6 +1,6 @@
-## Aplikasi Form Kepuasan Pelanggan & Executive Dashboard
+# 📊 Aplikasi Kuesioner & Executive Dashboard
 
-Aplikasi manajemen kuesioner berbasis web yang dirancang untuk pengumpulan data responsif, analisis hasil kuesioner, serta visualisasi data dalam bentuk *Executive Information System (EIS)* dashboard. Sistem ini mendukung akses multi-role (termasuk *Superadmin* dan *Admin*) dengan integrasi penuh ke Supabase sebagai backend service dan MySQL untuk penyimpanan data utama.
+Proyek aplikasi manajemen kuesioner berbasis web yang dirancang untuk pengumpulan data responsif, analisis hasil kuesioner, serta visualisasi data dalam bentuk *Executive Information System (EIS)* dashboard. Sistem ini mendukung akses multi-role (termasuk *Superadmin* dan *Admin*) dengan integrasi penuh ke Supabase sebagai backend service dan MySQL untuk penyimpanan data utama.1
 
 ---
 
@@ -8,12 +8,12 @@ Aplikasi manajemen kuesioner berbasis web yang dirancang untuk pengumpulan data 
 
 - **Authentication & Multi-Role Access Control**
   - Autentikasi aman berbasis Supabase Auth.
-  - Pembatasan hak akses halaman menggunakan khusus (`User`, `Admin`, `Superadmin`).
+  - Pembatasan hak akses halaman menggunakan *Nuxt Route Middleware* khusus (`User`, `Admin`, `Superadmin`).
 - **Manajemen Kuesioner Interaktif**
   - Pembuatan dan pendistribusian pertanyaan kuesioner secara fleksibel.
   - Pengumpulan jawaban dari responden secara realtime.
 - **Executive Information System (EIS) Dashboard**
-  - Visualisasi data statistik dan metrik partisipasi responden.
+  - Visualisasi data statistik agregat dan metrik partisipasi responden.
   - Antarmuka responsif yang disesuaikan untuk tampilan desktop maupun perangkat seluler.
 - **Manajemen User & Akses (Superadmin)**
   - Panel kontrol terpusat untuk mengelola profil pengguna dan perubahan *role* pengguna melalui tabel `access`.
@@ -46,8 +46,8 @@ Pastikan Anda telah menginstal **Node.js** (versi 18.x atau lebih baru) dan **np
 
 ### 2. Clone Repositori
 ```bash
-git clone https://github.com/SATORIYUU/kuesioner-pjt1.git
-cd NAMA_REPOSITORI
+git clone https:/https://github.com/SATORIYUU/kuesioner-pjt1.git
+cd kuisioner-pjt1
 ```
 
 ### 3. Install Dependensi
@@ -64,7 +64,7 @@ cp .env.example .env
 ```
 *(Isi `.env` sesuai panduan section di bawah).*
 
-### 5. Jalankan Mode Development & Menampilkan Website (local)
+### 5. Jalankan Mode Development
 ```bash
 npm run dev
 ```
@@ -78,14 +78,14 @@ Buat file bernama `.env` di direktori utama proyek Anda dan lengkapi variabel li
 
 ```env
 # Supabase Configuration
-SUPABASE_URL=https://your-supabase-project-id.supabase.co
-SUPABASE_KEY=your-supabase-anon-key
+SUPABASE_URL=https://your-project-id.supabase.co
+SUPABASE_KEY=your_supabase_anon_key_here
 
 # Database Configuration (MySQL)
 DB_HOST=localhost
 DB_PORT=3306
 DB_USER=root
-DB_PASSWORD=admin123
+DB_PASSWORD=your_password
 DB_NAME=kuesioner_db
 
 # App Configuration
@@ -93,4 +93,4 @@ NODE_ENV=development
 ```
 
 ---
-*Dibuat oleh Satrio Akbar A.*
+*Dibuat oleh Satrio Akbar*

@@ -144,4 +144,5 @@ const handleLogin = async () => {
     alert('Gagal masuk. Periksa kembali kombinasi Email dan Kata Sandi Anda.')
   }
 }
+
 </script>
