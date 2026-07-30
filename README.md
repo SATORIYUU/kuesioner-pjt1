@@ -1,6 +1,6 @@
 # 📊 Aplikasi Kuesioner & Executive Dashboard
 
-Proyek aplikasi manajemen kuesioner berbasis web yang dirancang untuk pengumpulan data responsif, analisis hasil kuesioner, serta visualisasi data dalam bentuk *Executive Information System (EIS)* dashboard. Sistem ini mendukung akses multi-role (termasuk *Superadmin* dan *Admin*) dengan integrasi penuh ke Supabase sebagai backend service dan MySQL untuk penyimpanan data utama.
+Proyek aplikasi manajemen kuesioner berbasis web yang dirancang untuk pengumpulan data responsif, analisis hasil kuesioner, serta visualisasi data dalam bentuk *Executive Information System (EIS)* dashboard. Sistem ini mendukung akses multi-role (termasuk *Superadmin* dan *Admin*) dengan integrasi penuh ke Supabase sebagai backend service dan MySQL untuk penyimpanan data utama.1
 
 ---
 
