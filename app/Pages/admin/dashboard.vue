@@ -146,16 +146,13 @@
               </div>
             </div>
 
-            <!-- 2. PANEL RINGKASAN SURVEI (FONT DAN HEADING DISAMAKAN DENGAN KIRI) -->
+            <!-- 2. PANEL RINGKASAN SURVEI -->
             <div class="w-full md:w-1/3 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between min-w-0">
               <div>
-                <!-- Header Panel disamakan persis ukurannya dengan Kiri -->
                <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider">Ringkasan Survei</h3>
 
-                <!-- Konten Metrik -->
                 <div class="space-y-3 text-xs mt-3">
                   
-                  <!-- Total Responden & Nilai Kepuasan -->
                   <div class="flex gap-2.5">
                     <div class="flex-1 bg-slate-50 p-2.5 rounded-xl flex flex-col justify-center">
                       <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total Responden</p>
@@ -190,7 +187,6 @@
                       <p class="font-bold text-slate-500 mt-0.5 truncate text-[11px]" :title="highestIndicator.title">{{ highestIndicator.title }}</p>
                     </div>
 
-                    <!-- Angka Skor Super Tebal Solid -->
                     <span 
                       class="text-emerald-600 text-base shrink-0 px-2 py-0.5" 
                       style="font-weight: 700; -webkit-text-stroke: 0.5px #059669;"
@@ -211,7 +207,6 @@
                       <p class="font-bold text-slate-500 mt-0.5 truncate text-[11px]" :title="lowestIndicator.title">{{ lowestIndicator.title }}</p>
                     </div>
 
-                    <!-- Angka Skor Super Tebal Solid -->
                     <span 
                       class="text-rose-600 text-base shrink-0 px-2 py-0.5" 
                       style="font-weight: 700; -webkit-text-stroke: 0.5px #e11d48;"
@@ -223,7 +218,6 @@
                 </div>
               </div>
 
-              <!-- Footer Tanggal (Samakan Gaya Text) -->
               <div class="pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-medium mt-3">
                 <span class="flex items-center gap-1">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5 text-slate-400">
@@ -237,32 +231,61 @@
 
           </div>
           
-          <!-- 5 KARTU METRIK DIMENSI -->
-          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-6">
-            <div v-for="card in categoryCards" :key="card.id" class="bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col justify-between overflow-hidden hover:shadow-md transition-shadow">
-              
-              <div class="p-4">
-                <div class="flex items-center justify-between mb-3">
-                  <div :class="card.textColor" class="text-lg bg-slate-50 p-1.5 rounded-lg shrink-0">
-                    {{ card.icon }}
+          <!-- SECTION 1: KUISIONER (SKALA 4) -->
+          <div class="mt-8 space-y-3">
+            <h3 class="text-base font-bold text-slate-800 tracking-tight">Kuisioner</h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+              <div v-for="card in kuesionerMetrics" :key="card.id" class="bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col justify-between overflow-hidden p-4">
+                <div>
+                  <div class="flex items-center justify-between mb-3">
+                    <div :class="card.textColor" class="text-lg bg-slate-50 p-1.5 rounded-lg shrink-0">
+                      {{ card.icon }}
+                    </div>
+                    <span class="text-[9px] font-bold bg-blue-50 text-[#004B87] px-1.5 py-0.5 rounded tracking-wide uppercase">Scale 4</span>
                   </div>
-                  <span class="text-[9px] font-bold bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded tracking-wide uppercase">Scale 5</span>
+                  <h3 class="text-xs font-bold text-slate-500 truncate mb-1" :title="card.title">{{ card.title }}</h3>
+                  <div class="flex items-baseline space-x-0.5">
+                    <span class="text-xl font-extrabold text-slate-900">{{ card.score }}</span>
+                    <span class="text-[10px] font-medium text-slate-400">/ 4.00</span>
+                  </div>
                 </div>
-                <h3 class="text-xs font-bold text-slate-500 truncate mb-1" :title="card.title">{{ card.title }}</h3>
-                <div class="flex items-baseline space-x-0.5">
-                  <span class="text-xl font-extrabold text-slate-900">{{ card.score }}</span>
-                  <span class="text-[10px] font-medium text-slate-400">/ 5.00</span>
+                <div class="w-full bg-slate-100 h-1.5 mt-3">
+                  <div 
+                    :class="card.barColor" 
+                    class="h-full transition-all duration-500" 
+                    :style="{ width: ((Number(card.score) / 4) * 100) + '%' }"
+                  ></div>
                 </div>
               </div>
-              
-              <div class="w-full bg-slate-100 h-1.5 mt-auto">
-                <div 
-                  :class="card.barColor" 
-                  class="h-full transition-all duration-500" 
-                  :style="{ width: ((Number(card.score) / 5) * 100) + '%' }"
-                ></div>
+            </div>
+          </div>
+
+          <!-- SECTION 2: LOYALITAS (SKALA 5) -->
+          <div class="mt-8 space-y-3">
+            <h3 class="text-base font-bold text-slate-800 tracking-tight">Loyalitas</h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+              <div v-for="card in loyalitasMetrics" :key="card.id" class="bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col justify-between overflow-hidden p-4">
+                <div>
+                  <div class="flex items-center justify-between mb-3">
+                    <div :class="card.textColor" class="text-lg bg-slate-50 p-1.5 rounded-lg shrink-0">
+                      {{ card.icon }}
+                    </div>
+                    <span class="text-[9px] font-bold bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded tracking-wide uppercase">Scale 5</span>
+                  </div>
+                  <h3 class="text-xs font-bold text-slate-500 truncate mb-1" :title="card.title">{{ card.title }}</h3>
+                  <div class="flex items-baseline space-x-0.5">
+                    <span class="text-xl font-extrabold text-slate-900">{{ card.score }}</span>
+                    <span class="text-[10px] font-medium text-slate-400">/ 5.00</span>
+                  </div>
+                </div>
+                <div class="w-full bg-slate-100 h-1.5 mt-3">
+                  <div 
+                    :class="card.barColor" 
+                    class="h-full transition-all duration-500" 
+                    :style="{ width: ((Number(card.score) / 5) * 100) + '%' }"
+                  ></div>
+                </div>
               </div>
-              
             </div>
           </div>
 
@@ -271,11 +294,8 @@
             <div class="p-5 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider">Recent Submissions</h3>
               
-              <!-- Fungsional Filter Kategori & Tanggal -->
-             <!-- Filter Dropdown & Search -->
               <div class="flex flex-wrap items-center gap-2">
                 
-                <!-- Search Input -->
                 <div class="relative w-full sm:w-48">
                   <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4 text-slate-400">
@@ -285,7 +305,6 @@
                   <input v-model="searchFilter" type="text" placeholder="Search respondent..." class="block w-full pl-9 pr-3 py-1.5 border border-slate-200 rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-[#004B87]" />
                 </div>
 
-                <!-- Dropdown Kategori -->
                 <select 
                   v-model="selectedCategory" 
                   class="border border-slate-200 rounded-md px-3 py-1.5 text-xs font-bold text-slate-700 bg-white focus:ring-2 focus:ring-[#004B87] outline-none cursor-pointer min-w-[140px]"
@@ -297,7 +316,6 @@
                   <option value="Pihak yang Berkepentingan">Pihak Berkepentingan</option>
                 </select>
 
-                <!-- Dropdown Bulan & Tahun -->
                 <select 
                   v-model="selectedMonthYear" 
                   class="border border-slate-200 rounded-md px-3 py-1.5 text-xs font-bold text-slate-700 bg-white focus:ring-2 focus:ring-[#004B87] outline-none cursor-pointer min-w-[130px]"
@@ -309,7 +327,6 @@
               </div>
             </div>
 
-            <!-- TABEL DENGAN HEADER BIRU SESUAI GAMBAR -->
             <div class="overflow-x-auto p-0 m-0">
               <table class="w-full text-left text-xs whitespace-nowrap">
                 <thead class="bg-[#004B87] text-white font-bold uppercase">
@@ -380,7 +397,17 @@ const totalResponden = ref(0)
 const lastUpdatedDate = ref('-')
 const subCategoryCounts = ref({ PLTA: 0, PDAM: 0, Industri: 0, PihakBerkepentingan: 0 })
 
-const categoryCards = ref([
+// 5 Kartu Kuisioner (Skala Maks 4.00)
+const kuesionerMetrics = ref([
+  { id: 'tangible', title: 'Nyata (Tangible)', score: '0.00', icon: '🏢', textColor: 'text-green-500', barColor: 'bg-green-500' },
+  { id: 'reliability', title: 'Kemampuan (Reliability)', score: '0.00', icon: '⚙️', textColor: 'text-blue-500', barColor: 'bg-blue-500' },
+  { id: 'responsiveness', title: 'Tanggap (Responsiveness)', score: '0.00', icon: '⚡', textColor: 'text-amber-500', barColor: 'bg-amber-500' },
+  { id: 'assurance', title: 'Kepastian (Assurance)', score: '0.00', icon: '🛡️', textColor: 'text-sky-500', barColor: 'bg-sky-500' },
+  { id: 'empathy', title: 'Perhatian Khusus (Empathy)', score: '0.00', icon: '🤝', textColor: 'text-purple-500', barColor: 'bg-purple-500' }
+])
+
+// 5 Kartu Loyalitas (Skala Maks 5.00)
+const loyalitasMetrics = ref([
   { id: 'kepuasan', title: 'Kepuasan Pelanggan', score: '0.00', icon: '😊', textColor: 'text-green-500', barColor: 'bg-green-500' },
   { id: 'kepercayaan', title: 'Kepercayaan', score: '0.00', icon: '🛡️', textColor: 'text-blue-500', barColor: 'bg-blue-500' },
   { id: 'keterikatan', title: 'Keterikatan Pelanggan', score: '0.00', icon: '🤝', textColor: 'text-sky-500', barColor: 'bg-sky-500' },
@@ -395,22 +422,24 @@ const categoryBreakdown = computed(() => [
   { name: 'Pihak Berkepentingan', count: subCategoryCounts.value.PihakBerkepentingan, colorHex: '#DC80F7' }
 ])
 
-// KOMPUTASI METRIK
+// KOMPUTASI METRIK KESELURUHAN
 const overallSatisfaction = computed(() => {
-  const scores = categoryCards.value.map(c => Number(c.score))
-  const sum = scores.reduce((acc, curr) => acc + curr, 0)
-  return scores.length > 0 ? (sum / scores.length).toFixed(2) : '0.00'
+  const allScores = [...kuesionerMetrics.value, ...loyalitasMetrics.value].map(c => Number(c.score))
+  const sum = allScores.reduce((acc, curr) => acc + curr, 0)
+  return allScores.length > 0 ? (sum / allScores.length).toFixed(2) : '0.00'
 })
 
 const highestIndicator = computed(() => {
-  if (!categoryCards.value.length) return { title: '-', score: '0.00' }
-  const sorted = [...categoryCards.value].sort((a, b) => Number(b.score) - Number(a.score))
+  const all = [...kuesionerMetrics.value, ...loyalitasMetrics.value]
+  if (!all.length) return { title: '-', score: '0.00' }
+  const sorted = [...all].sort((a, b) => Number(b.score) - Number(a.score))
   return { title: sorted[0].title, score: sorted[0].score }
 })
 
 const lowestIndicator = computed(() => {
-  if (!categoryCards.value.length) return { title: '-', score: '0.00' }
-  const sorted = [...categoryCards.value].sort((a, b) => Number(a.score) - Number(b.score))
+  const all = [...kuesionerMetrics.value, ...loyalitasMetrics.value]
+  if (!all.length) return { title: '-', score: '0.00' }
+  const sorted = [...all].sort((a, b) => Number(a.score) - Number(b.score))
   return { title: sorted[0].title, score: sorted[0].score }
 })
 
@@ -429,11 +458,10 @@ const availableDates = computed(() => {
   return [...new Set(dates)]
 })
 
-// Logika Filtering yang Diperbaiki & Akurat
+// Logika Filtering
 const filteredTableData = computed(() => {
   let result = tableData.value
 
-  // 1. Filter Search Text
   if (searchFilter.value.trim()) {
     const query = searchFilter.value.toLowerCase().trim()
     result = result.filter(item => 
@@ -443,7 +471,6 @@ const filteredTableData = computed(() => {
     )
   }
 
-  // 2. Filter Dropdown Kategori
   if (selectedCategory.value) {
     const target = selectedCategory.value.toLowerCase().trim()
     
@@ -457,12 +484,10 @@ const filteredTableData = computed(() => {
       if (target === 'industri') {
         return sub.includes('industri') || sub.includes('swasta')
       }
-      // Untuk PLTA dan PDAM
       return sub.includes(target)
     })
   }
 
-  // 3. Filter Dropdown Bulan & Tahun
   if (selectedMonthYear.value) {
     result = result.filter(item => (item.date || '').includes(selectedMonthYear.value))
   }
@@ -482,21 +507,26 @@ const formatDate = (dateString) => {
 const calculateDashboardMetrics = (responses, respondentsList) => {
   if (!responses || responses.length === 0) return
 
-  const mapping = {
-    kepuasan: [1, 2, 3, 4, 5],
-    kepercayaan: [6, 7, 8, 9, 10],
-    keterikatan: [11, 12, 13, 14, 15],
-    permintaan: [16, 17, 18, 19, 20],
-    wom: [21, 22, 23, 24, 25]
+  // Mapping pertanyaan kuisioner (1-12) ke 5 Sub-dimensi (Skala 4)
+  const kuesionerMapping = {
+    tangible: [1, 2],
+    reliability: [3, 4, 5],
+    responsiveness: [6, 7],
+    assurance: [8, 9],
+    empathy: [10, 11, 12]
   }
 
-  const totals = {
-    kepuasan: { sum: 0, count: 0 },
-    kepercayaan: { sum: 0, count: 0 },
-    keterikatan: { sum: 0, count: 0 },
-    permintaan: { sum: 0, count: 0 },
-    wom: { sum: 0, count: 0 }
+  // Mapping pertanyaan loyalitas (Skala 5)
+  const loyaltyMapping = {
+    kepuasan: ['loyalitas_1', 1],
+    kepercayaan: ['loyalitas_2', 2],
+    keterikatan: ['loyalitas_3', 3],
+    permintaan: ['loyalitas_4', 4],
+    wom: ['loyalitas_5', 5]
   }
+
+  const kuesTotals = { tangible: { sum: 0, count: 0 }, reliability: { sum: 0, count: 0 }, responsiveness: { sum: 0, count: 0 }, assurance: { sum: 0, count: 0 }, empathy: { sum: 0, count: 0 } }
+  const loyTotals = { kepuasan: { sum: 0, count: 0 }, kepercayaan: { sum: 0, count: 0 }, keterikatan: { sum: 0, count: 0 }, permintaan: { sum: 0, count: 0 }, wom: { sum: 0, count: 0 } }
 
   const counts = { PLTA: 0, PDAM: 0, Industri: 0, PihakBerkepentingan: 0 }
 
@@ -513,36 +543,52 @@ const calculateDashboardMetrics = (responses, respondentsList) => {
       counts.PDAM++
     } else if (subCat.includes('industri') || subCat.includes('swasta')) {
       counts.Industri++
-    } else if (
-      subCat.includes('pemerintah') || 
-      subCat.includes('pyb') || 
-      mainCat.includes('pihak') || 
-      mainCat.includes('berkepentingan') || 
-      mainCat.includes('pyb')
-    ) {
-      counts.PihakBerkepentingan++
     } else {
       counts.PihakBerkepentingan++
     }
 
     const ans = res.answers || {}
-    Object.keys(mapping).forEach(catId => {
-      mapping[catId].forEach(qId => {
-        const score = ans[qId] !== undefined ? ans[qId] : ans[String(qId)]
+
+    // Hitung rata-rata sub-dimensi kuisioner (menggunakan nilai kepuasan skala 1-4)
+    Object.keys(kuesionerMapping).forEach(dimId => {
+      kuesionerMapping[dimId].forEach(qId => {
+        const score = ans[`q${qId}_kepuasan`] !== undefined ? ans[`q${qId}_kepuasan`] : ans[qId]
         if (score !== undefined && score !== null) {
-          totals[catId].sum += Number(score)
-          totals[catId].count++
+          kuesTotals[dimId].sum += Number(score)
+          kuesTotals[dimId].count++
         }
       })
+    })
+
+    // Hitung rata-rata loyalitas (skala 1-5)
+    Object.keys(loyaltyMapping).forEach(loyId => {
+      const keys = loyaltyMapping[loyId]
+      let score = undefined
+      for (const k of keys) {
+        if (ans[k] !== undefined && ans[k] !== null) {
+          score = ans[k]
+          break
+        }
+      }
+      if (score !== undefined && score !== null) {
+        loyTotals[loyId].sum += Number(score)
+        loyTotals[loyId].count++
+      }
     })
   })
 
   subCategoryCounts.value = counts
 
-  categoryCards.value = categoryCards.value.map(card => {
-    const catData = totals[card.id]
-    const average = catData.count > 0 ? (catData.sum / catData.count).toFixed(2) : '0.00'
-    return { ...card, score: average }
+  kuesionerMetrics.value = kuesionerMetrics.value.map(card => {
+    const d = kuesTotals[card.id]
+    const avg = d.count > 0 ? (d.sum / d.count).toFixed(2) : '0.00'
+    return { ...card, score: avg }
+  })
+
+  loyalitasMetrics.value = loyalitasMetrics.value.map(card => {
+    const d = loyTotals[card.id]
+    const avg = d.count > 0 ? (d.sum / d.count).toFixed(2) : '0.00'
+    return { ...card, score: avg }
   })
 }
 
