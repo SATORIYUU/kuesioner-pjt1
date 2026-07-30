@@ -90,7 +90,7 @@
             <svg v-if="isSidebarOpen" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" /></svg>
             <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
           </button>
-          <h1 class="text-base sm:text-xl font-extrabold text-slate-800 tracking-tight">Perum Jasa Tirta 1</h1>
+          <h1 class="text-base sm:text-xl font-extrabold text-slate-800 tracking-tight">Perum Jasa Tirta I</h1>
         </div>
 
         <div class="flex items-center space-x-6 sm:space-x-8">
@@ -112,8 +112,8 @@
           
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <h2 class="text-2xl font-bold text-slate-900 mb-1">Data Responden</h2>
-              <p class="text-xs sm:text-sm text-slate-400 font-medium">Monitoring status pengisian kuesioner dan penilaian kualitas layanan per kuesioner.</p>
+              <h2 class="text-2xl font-bold text-slate-900 mb-1">Data Responden & Penilaian</h2>
+              <p class="text-xs sm:text-sm text-slate-400 font-medium">Monitoring status pengisian kuesioner dengan rincian Skala Kepuasan, Kepentingan, dan Loyalitas.</p>
             </div>
             <div class="text-xs text-slate-500 font-medium bg-white px-3 py-2 rounded-lg border border-slate-200 shadow-sm self-start sm:self-auto">
               Total Ditampilkan: <span class="font-bold text-[#004B87]">{{ filteredRespondents.length }}</span> / {{ allClientsList.length }} Klien
@@ -267,73 +267,126 @@
                     <td class="px-6 py-4 text-slate-500 font-medium whitespace-nowrap">{{ row.date }}</td>
                   </tr>
 
-                  <!-- ACCORDION CONTENT DETAIL PERTANYAAN -->
-                  <tr v-if="expandedRowId === row.id" class="bg-slate-50/80">
+                  <!-- ACCORDION CONTENT DETAIL EVALUASI & LOYALITAS -->
+                  <tr v-if="expandedRowId === row.id" class="bg-slate-50/90">
                     <td colspan="5" class="p-6 border-b border-slate-200 shadow-inner whitespace-normal">
                       
-                      <div class="flex flex-col lg:flex-row gap-8 w-full">
+                      <div class="space-y-6 w-full max-w-6xl mx-auto">
                         
-                        <!-- Sisi Kiri: Klasifikasi Dimensi (5 Dimensi / 25 Pertanyaan) -->
-                        <div class="flex-1 space-y-3">
-                          <div class="flex items-center justify-between mb-1">
-                            <h4 class="text-xs font-extrabold text-slate-500 uppercase tracking-wider">
-                              Klasifikasi Dimensi (25 Pertanyaan)
-                            </h4>
-                            <span v-if="!row.hasFilled" class="text-[10px] font-bold text-rose-500 bg-rose-50 px-2 py-0.5 rounded border border-rose-100">
-                              * Belum mengisi (Skor otomatis 0)
-                            </span>
-                          </div>
+                        <!-- BAGIAN UNTUK RESPOSNDEN BELUM MENGISI -->
+                        <div v-if="!row.hasFilled" class="bg-amber-50 border border-amber-200 rounded-xl p-6 text-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-amber-500 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                          </svg>
+                          <h4 class="text-sm font-bold text-amber-800">Klien Belum Mengisi Kuesioner</h4>
+                          <p class="text-xs text-amber-600 mt-1">Belum ada rincian jawaban evaluasi, loyalitas, maupun saran yang terekam dari perusahaan ini.</p>
+                        </div>
+
+                        <!-- BAGIAN JIKA SUDAH MENGISI -->
+                        <template v-else>
                           
-                          <div v-for="dim in row.dimensions" :key="dim.id" class="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
-                            <div 
-                              @click="toggleDimension(dim.id)" 
-                              class="flex items-center justify-between p-3.5 bg-slate-50 hover:bg-slate-100 cursor-pointer transition-colors"
-                            >
-                              <div class="flex items-center gap-3">
-                                <!-- Menggunakan inline style untuk menjamin warna bullet selalu tampil -->
-                                <div :style="{ backgroundColor: dim.color }" class="w-3.5 h-3.5 rounded-full shadow-sm shrink-0"></div>
-                                <span class="text-xs font-bold text-slate-700">{{ dim.title }}</span>
+                          <!-- 1. BAGIAN TABEL EVALUASI (KEPUASAN & KEPENTINGAN) -->
+                          <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                              <div class="flex items-center gap-2">
+                                <span class="bg-[#004B87] text-white text-[10px] font-bold px-2 py-0.5 rounded">Bagian A</span>
+                                <h4 class="text-xs font-extrabold text-slate-800 uppercase tracking-wider">
+                                  Rincian Evaluasi Layanan (Skala 1 - 4)
+                                </h4>
                               </div>
-                              <div class="flex items-center gap-2 shrink-0">
-                                <span class="text-xs font-extrabold text-[#004B87] bg-white px-2 py-0.5 rounded border border-slate-200">
-                                  Rata-rata: {{ dim.score }} / 5.0
-                                </span>
-                                <svg 
-                                  xmlns="http://www.w3.org/2000/svg" 
-                                  fill="none" 
-                                  viewBox="0 0 24 24" 
-                                  stroke-width="2.5" 
-                                  stroke="currentColor" 
-                                  :class="expandedDimId === dim.id ? 'rotate-180 text-[#004B87]' : 'text-slate-400'"
-                                  class="h-4 w-4 transition-transform duration-200"
-                                >
-                                  <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                                </svg>
+                              <div class="flex items-center gap-2 text-[10px] font-bold">
+                                <span class="px-2 py-0.5 rounded bg-blue-50 text-[#004B87] border border-blue-100">Rata-rata Kepuasan: {{ calculateAvg(row.evalQuestions, 'satisfaction') }}</span>
+                                <span class="px-2 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-100">Rata-rata Kepentingan: {{ calculateAvg(row.evalQuestions, 'importance') }}</span>
                               </div>
                             </div>
 
-                            <div v-if="expandedDimId === dim.id" class="p-3 bg-white divide-y divide-slate-100 space-y-2 border-t border-slate-200">
-                              <div v-for="q in dim.questions" :key="q.id" class="pt-2 flex justify-between items-center text-xs font-medium text-slate-600">
-                                <span>Pertanyaan {{ q.id }}</span>
-                                <span class="font-bold text-slate-900 bg-slate-100 px-2 py-0.5 rounded">Skor: {{ q.value }} / 5</span>
+                            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+                              <table class="w-full text-left text-xs">
+                                <thead class="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
+                                  <tr>
+                                    <th class="p-3 w-12 text-center">No.</th>
+                                    <th class="p-3">Butir Pertanyaan Evaluasi</th>
+                                    <th class="p-3 text-center w-32">Kepuasan (1-4)</th>
+                                    <th class="p-3 text-center w-32">Kepentingan (1-4)</th>
+                                  </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100">
+                                  <tr v-for="q in row.evalQuestions" :key="q.id" class="hover:bg-slate-50/60 transition-colors">
+                                    <td class="p-3 text-center font-bold text-slate-400">{{ q.id }}</td>
+                                    <td class="p-3 font-medium text-slate-700 leading-relaxed">{{ q.text }}</td>
+                                    <td class="p-3 text-center">
+                                      <span 
+                                        :class="q.satisfaction >= 3 ? 'bg-blue-50 text-[#004B87] border-blue-100' : 'bg-rose-50 text-rose-600 border-rose-100'"
+                                        class="px-2.5 py-1 rounded-md font-extrabold border inline-block min-w-[50px]"
+                                      >
+                                        {{ q.satisfaction || '-' }} / 4
+                                      </span>
+                                    </td>
+                                    <td class="p-3 text-center">
+                                      <span 
+                                        :class="q.importance >= 3 ? 'bg-amber-50 text-amber-800 border-amber-100' : 'bg-slate-100 text-slate-500 border-slate-200'"
+                                        class="px-2.5 py-1 rounded-md font-extrabold border inline-block min-w-[50px]"
+                                      >
+                                        {{ q.importance || '-' }} / 4
+                                      </span>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+
+                          <!-- 2. BAGIAN PILIHAN LOYALITAS (CARD GRID) -->
+                          <div class="space-y-3 pt-2">
+                            <div class="flex items-center gap-2">
+                              <span class="bg-[#004B87] text-white text-[10px] font-bold px-2 py-0.5 rounded">Bagian B</span>
+                              <h4 class="text-xs font-extrabold text-slate-800 uppercase tracking-wider">
+                                Pengukuran Loyalitas Pelanggan (Opsi Terpilih)
+                              </h4>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                              <div 
+                                v-for="loy in row.loyaltyAnswers" 
+                                :key="loy.id" 
+                                class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm flex flex-col justify-between hover:border-slate-300 transition-all"
+                              >
+                                <div>
+                                  <div class="flex items-center justify-between mb-2">
+                                    <span class="text-[11px] font-bold text-[#004B87] uppercase tracking-wider">{{ loy.title }}</span>
+                                    <span class="text-[10px] font-extrabold bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full">
+                                      {{ loy.selectedVal }}
+                                    </span>
+                                  </div>
+                                  <p class="text-xs text-slate-700 font-medium leading-relaxed bg-slate-50 p-2.5 rounded-lg border border-slate-100 italic">
+                                    "{{ loy.selectedText }}"
+                                  </p>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
 
-                        <!-- Sisi Kanan: Kotak Saran Responden -->
-                        <div class="flex-1 flex flex-col gap-2">
-                          <h4 class="text-xs font-extrabold text-slate-500 uppercase tracking-wider mb-1">
-                            Saran / Masukan Responden
-                          </h4>
-                          <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm w-full h-full min-h-[200px] overflow-y-auto custom-scrollbar">
-                            <p class="text-xs text-slate-700 font-medium leading-relaxed italic break-words whitespace-pre-wrap">
-                              <span v-if="row.hasFilled && row.feedback && row.feedback.trim()">"{{ row.feedback }}"</span>
-                              <span v-else-if="row.hasFilled" class="text-slate-400 font-normal">Tidak ada catatan saran tertulis dari responden.</span>
-                              <span v-else class="text-slate-400 font-normal">Klien ini belum melakukan pengisian kuesioner.</span>
-                            </p>
+                          <!-- 3. BAGIAN SARAN / MASUKAN RESPONDEN -->
+                          <div class="space-y-2 pt-2">
+                            <div class="flex items-center gap-2">
+                              <span class="bg-[#004B87] text-white text-[10px] font-bold px-2 py-0.5 rounded">Bagian C</span>
+                              <h4 class="text-xs font-extrabold text-slate-800 uppercase tracking-wider">
+                                Catatan Saran & Kritik Responden
+                              </h4>
+                            </div>
+                            
+                            <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm relative overflow-hidden">
+                              <div class="absolute top-0 left-0 bottom-0 w-1 bg-[#004B87]"></div>
+                              <p v-if="row.feedback && row.feedback.trim()" class="text-xs text-slate-800 font-medium leading-relaxed italic pl-2">
+                                "{{ row.feedback }}"
+                              </p>
+                              <p v-else class="text-xs text-slate-400 italic pl-2">
+                                Tidak ada catatan masukan tertulis dari responden ini.
+                              </p>
+                            </div>
                           </div>
-                        </div>
+
+                        </template>
 
                       </div>
 
@@ -375,25 +428,79 @@ const router = useRouter()
 const route = useRoute()
 const supabase = useSupabaseClient()
 
-// Layout States
 const isSidebarOpen = ref(true)
 const isLoading = ref(true)
 
-// Toolbar Filter States
 const searchQuery = ref('')
 const selectedFillStatus = ref('')
 const selectedDateSort = ref('terbaru')
 const hideInactive = ref(false)
 
-// Accordion States
 const expandedRowId = ref(null)
-const expandedDimId = ref(null)
 
-// Data Pools
 const allClientsList = ref([])
 const combinedRespondentsList = ref([])
+const masterQuestions = ref([])
 
-// Status Summary Counts
+// Definisi opsi teks loyalitas untuk rekap admin
+const loyaltyDefinitions = [
+  {
+    id: 1,
+    title: '1. Kepuasan Pelanggan',
+    options: {
+      1: 'Saya menyukai layanan jasa air baku dari pihak selain Perum Jasa Tirta I yang lebih menguntungkan usaha saya.',
+      2: 'Saya tidak mengalami ketidakpuasan selama menjadi pelanggan layanan jasa air baku Perum Jasa Tirta I dan saya sudah terbiasa menjadi pelanggan.',
+      3: 'Saya puas dengan layanan jasa air baku Perum Jasa Tirta I, tapi bila ada layanan sejenis dari pihak lain yang lebih murah saya akan beralih.',
+      4: 'Saya menyukai layanan jasa air baku Perum Jasa Tirta I dan akan lebih puas jika menggunakan layanan PJT I dibanding pihak lain.',
+      5: 'Saya sangat puas dengan layanan jasa air baku Perum Jasa Tirta I dan saya akan merekomendasikan layanan tersebut kepada rekan-rekan saya.'
+    }
+  },
+  {
+    id: 2,
+    title: '2. Kepercayaan (Trust)',
+    options: {
+      1: 'Saya tidak memiliki kepercayaan khusus terhadap Perum Jasa Tirta I, saya lebih mengutamakan prinsip ekonomi dalam bisnis saya.',
+      2: 'Saya biasa mempercayakan pemenuhan kebutuhan air baku saya pada layanan jasa air baku Perum Jasa Tirta I.',
+      3: 'Saya percaya pada layanan Perum Jasa Tirta I, tapi ada kemungkinan saya beralih ke penyedia jasa lain yang lebih terpercaya.',
+      4: 'Saya benar-benar percaya pada kerjasama yang saya jalin dengan Perum Jasa Tirta I.',
+      5: 'Saya bangga mempercayakan pemenuhan air baku saya pada layanan jasa air Perum Jasa Tirta I.'
+    }
+  },
+  {
+    id: 3,
+    title: '3. Keterikatan',
+    options: {
+      1: 'Saya sering berpindah-pindah penyedia jasa layanan air baku, saya jarang terikat pada satu jenis layanan/perusahaan.',
+      2: 'Sudah menjadi kebiasaan saya meminta Perum Jasa Tirta I untuk memenuhi kebutuhan air baku saya.',
+      3: 'Saya tidak pernah dikecewakan oleh PJT I, tapi saya tidak memiliki komitmen khusus untuk selalu bekerjasama.',
+      4: 'Saya yakin layanan PJT I lebih baik dari pihak lain, mungkin saya akan terus melanjutkan kerjasama.',
+      5: 'Saya yakin layanan PJT I lebih baik dari pihak lain dan saya memiliki komitmen untuk terus bekerjasama.'
+    }
+  },
+  {
+    id: 4,
+    title: '4. Permintaan Ulang',
+    options: {
+      1: 'Saya jarang / tidak pernah melakukan permintaan ulang terhadap layanan jasa air baku PJT I secara berturut-turut.',
+      2: 'Saya biasa meminta layanan jasa air baku PJT I, tapi jarang melakukan permintaan ulang secara berturut-turut.',
+      3: 'Setidaknya saya pernah melakukan permintaan ulang terhadap layanan jasa air baku PJT I sebanyak tiga kali berturut-turut.',
+      4: 'Saya selalu meminta layanan jasa air baku Perum Jasa Tirta I karena saya menyukai layanan tersebut.',
+      5: 'Saya akan selalu menjadi pelanggan setia PJT I dan selalu meminta layanannya karena bangga menjalin kerjasama.'
+    }
+  },
+  {
+    id: 5,
+    title: '5. Word-of-Mouth Behavior',
+    options: {
+      1: 'Saya tidak pernah berniat merekomendasikan layanan jasa air baku Perum Jasa Tirta I kepada rekan atau kolega saya.',
+      2: 'Saya biasa menggunakan layanan PJT I dan merekomendasikannya bila ada rekan yang menanyakannya.',
+      3: 'Saya puas menggunakan layanan PJT I, bila ada rekan meminta rekomendasi maka saya merekomendasikannya sebagai alternatif.',
+      4: 'Saya menyukai layanan PJT I dan merekomendasikan layanannya bila ada rekan yang membutuhkan informasi.',
+      5: 'Saya senang dan bangga menjadi pelanggan PJT I, sehingga tanpa diminta saya akan menceritakan pengalaman positif kepada rekan.'
+    }
+  }
+]
+
 const statusCounts = computed(() => {
   let filled = 0
   let unfilled = 0
@@ -413,7 +520,6 @@ const statusCounts = computed(() => {
   return { filled, unfilled, active, inactive }
 })
 
-// Filter & Sort Logic
 const filteredRespondents = computed(() => {
   let result = combinedRespondentsList.value.filter(item => {
     const matchesSearch = !searchQuery.value || 
@@ -450,14 +556,8 @@ const resetFilters = () => {
   hideInactive.value = false
 }
 
-// Toggle Accordions
 const toggleRow = (rowId) => {
   expandedRowId.value = expandedRowId.value === rowId ? null : rowId
-  expandedDimId.value = null
-}
-
-const toggleDimension = (dimId) => {
-  expandedDimId.value = expandedDimId.value === dimId ? null : dimId
 }
 
 const formatDate = (dateString) => {
@@ -469,7 +569,14 @@ const formatDate = (dateString) => {
   })
 }
 
-// FETCH DATA & COMBINE MASTER CLIENTS + RESPONDENT RESPONSES
+const calculateAvg = (questions, key) => {
+  if (!questions || questions.length === 0) return '0.0'
+  const valid = questions.map(q => q[key]).filter(v => v > 0)
+  if (valid.length === 0) return '0.0'
+  const sum = valid.reduce((a, b) => a + b, 0)
+  return (sum / valid.length).toFixed(1)
+}
+
 const fetchData = async () => {
   try {
     isLoading.value = true
@@ -481,6 +588,14 @@ const fetchData = async () => {
 
     if (clientErr) throw clientErr
     allClientsList.value = clients || []
+
+    const { data: questions, error: qErr } = await supabase
+      .from('questions')
+      .select('id, question_text')
+      .order('id', { ascending: true })
+
+    if (qErr) throw qErr
+    masterQuestions.value = questions || []
 
     const { data: responses, error: resErr } = await supabase
       .from('questionnaire_responses')
@@ -494,51 +609,50 @@ const fetchData = async () => {
 
     if (respErr) throw respErr
 
-    // Pemetaan 5 Dimensi (Menggunakan Nilai Hex Warna Agar Bullet Selalu Tampil)
-    const mapping = {
-      kepuasan: { title: 'Kepuasan Pelanggan', list: [1, 2, 3, 4, 5], color: '#10b981' },
-      kepercayaan: { title: 'Kepercayaan', list: [6, 7, 8, 9, 10], color: '#06b6d4' },
-      keterikatan: { title: 'Keterikatan Pelanggan', list: [11, 12, 13, 14, 15], color: '#6366f1' },
-      permintaan: { title: 'Permintaan Ulang', list: [16, 17, 18, 19, 20], color: '#f59e0b' },
-      wom: { title: 'Word of Mouth Behavior', list: [21, 22, 23, 24, 25], color: '#d946ef' }
-    }
-
     combinedRespondentsList.value = (clients || []).map(client => {
-      const matchRespIdent = respondents ? respondents.find(r => r.company_name?.toLowerCase().trim() === client.company_name?.toLowerCase().trim()) : null
-      const matchResponse = matchRespIdent && responses ? responses.find(res => res.respondent_id === matchRespIdent.id) : null
+      const clientNameClean = (client.company_name || '').trim().toLowerCase()
+
+      const matchedRespondents = (respondents || []).filter(r => {
+        const respNameClean = (r.company_name || '').trim().toLowerCase()
+        return respNameClean === clientNameClean
+      })
+
+      const matchedRespIds = matchedRespondents.map(r => r.id)
+
+      let matchResponse = (responses || []).find(res => matchedRespIds.includes(res.respondent_id))
+
+      if (!matchResponse && respondents && responses) {
+        matchResponse = responses.find(res => {
+          const respObj = respondents.find(r => r.id === res.respondent_id)
+          if (!respObj) return false
+          const respNameClean = (respObj.company_name || '').trim().toLowerCase()
+          return respNameClean === clientNameClean
+        })
+      }
 
       const hasFilled = !!matchResponse
       const ans = matchResponse ? (matchResponse.answers || {}) : {}
 
-      const computedDimensions = Object.keys(mapping).map(key => {
-        const dimInfo = mapping[key]
-        let sum = 0
-        let count = 0
-        const questionsDetail = []
-
-        dimInfo.list.forEach(qId => {
-          if (hasFilled) {
-            const val = ans[qId] !== undefined ? ans[qId] : ans[String(qId)]
-            if (val !== undefined && val !== null) {
-              sum += Number(val)
-              count++
-              questionsDetail.push({ id: qId, value: Number(val) })
-            } else {
-              questionsDetail.push({ id: qId, value: 0 })
-            }
-          } else {
-            questionsDetail.push({ id: qId, value: 0 })
+      // Mapping pertanyaan evaluasi (Kepuasan & Kepentingan)
+      const evalQuestions = masterQuestions.value
+        .filter(q => q.id <= 12)
+        .map(q => {
+          return {
+            id: q.id,
+            text: q.question_text,
+            satisfaction: hasFilled ? (ans[`q${q.id}_kepuasan`] || 0) : 0,
+            importance: hasFilled ? (ans[`q${q.id}_kepentingan`] || 0) : 0
           }
         })
 
-        const average = hasFilled && count > 0 ? (sum / count).toFixed(1) : '0.0'
-
+      // Mapping pilihan loyalitas
+      const loyaltyAnswers = loyaltyDefinitions.map(loy => {
+        const val = hasFilled ? (ans[`loyalitas_${loy.id}`] || 0) : 0
         return {
-          id: key,
-          title: dimInfo.title,
-          color: dimInfo.color,
-          score: average,
-          questions: questionsDetail
+          id: loy.id,
+          title: loy.title,
+          selectedVal: val ? `Opsi ${val}` : '-',
+          selectedText: (val && loy.options[val]) ? loy.options[val] : 'Belum dipilih / Tidak ada data'
         }
       })
 
@@ -550,7 +664,8 @@ const fetchData = async () => {
         rawDate: matchResponse ? matchResponse.created_at : null,
         date: matchResponse ? formatDate(matchResponse.created_at) : 'Belum Mengisi',
         feedback: matchResponse ? matchResponse.feedback : '',
-        dimensions: computedDimensions
+        evalQuestions,
+        loyaltyAnswers
       }
     })
 
