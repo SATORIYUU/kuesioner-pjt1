@@ -1,7 +1,7 @@
 <template>
   <div class="h-screen w-full bg-[#F4F7FA] flex overflow-hidden font-sans text-slate-800">
     
-    <!-- Latar Belakang Overlay untuk Mobile (Sidebar) -->
+    <!-- LATAR BELAKANG OVERLAY MOBILE (SIDEBAR) -->
     <div 
       v-if="isSidebarOpen" 
       @click="isSidebarOpen = false"
@@ -28,14 +28,13 @@
         </button>
       </div>
 
-      <!-- Navigation Menu -->
       <nav class="flex-1 px-4 space-y-2 mt-4">
         <NuxtLink 
           to="/admin/dashboard" 
-          :class="route.path.includes('/admin/dashboard') || route.path.includes('/admin/overview') ? 'bg-blue-50 text-[#004B87] font-bold border-l-4 border-[#004B87]' : 'text-slate-600 hover:bg-slate-50 font-medium'"
+          :class="route.path === '/admin/dashboard' ? 'bg-blue-50 text-[#004B87] font-bold border-l-4 border-[#004B87]' : 'text-slate-600 hover:bg-slate-50 font-medium'"
           class="flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2h-2a2 2 0 01-2-2v-2z" /></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v-2a2 2 0 01-2-2v-2z" /></svg>
           <span>Overview</span>
         </NuxtLink>
         
@@ -55,8 +54,8 @@
           :class="route.path === '/admin/respondents' ? 'bg-blue-50 text-[#004B87] font-bold border-l-4 border-[#004B87]' : 'text-slate-600 hover:bg-slate-50 font-medium'"
           class="flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>
-          <span>Respondent Data</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>
+          <span>Data Responen</span>
         </NuxtLink>
 
         <NuxtLink 
@@ -67,20 +66,14 @@
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-5 w-5 shrink-0">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
           </svg>
-          <span>Manage Questions</span>
+          <span>Kuisioner</span>
         </NuxtLink>
       </nav>
 
+      <!-- TOMBOL LOGOUT SIDEBAR -->
       <div class="p-4 border-t border-slate-200">
-        <button @click="handleLogout" class="flex items-center space-x-3 px-4 py-3 w-full text-slate-600 hover:text-red-600 hover:bg-red-50 font-medium rounded-xl transition-colors">
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            fill="none" 
-            viewBox="0 0 24 24" 
-            stroke-width="2" 
-            stroke="currentColor" 
-            class="h-5 w-5 shrink-0"
-          >
+        <button @click="triggerLogoutPrompt" class="flex items-center space-x-3 px-4 py-3 w-full text-slate-600 hover:text-red-600 hover:bg-red-50 font-medium rounded-xl transition-colors cursor-pointer">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-5 w-5 shrink-0">
             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
           </svg>
           <span>Logout</span>
@@ -104,11 +97,15 @@
         <div class="flex items-center space-x-6 sm:space-x-8">
           <div class="flex items-center space-x-3 border-l border-slate-200 pl-6 h-9">
             <div class="hidden sm:block text-right">
-              <p class="text-sm font-bold text-slate-900 leading-none">Admin User Profile</p>
-              <p class="text-[10px] text-slate-500 font-medium mt-1">Operations Manager</p>
+              <p class="text-sm font-bold text-slate-900 leading-none">
+                {{ isSuperAdmin ? 'User2' : 'User1' }}
+              </p>
+              <p class="text-[10px] text-slate-500 font-medium mt-1">
+                {{ isSuperAdmin ? 'Superadmin' : 'Admin' }}
+              </p>
             </div>
             <div class="h-9 w-9 rounded-full bg-[#004B87] text-white flex items-center justify-center font-bold text-sm shadow-sm shrink-0">
-              AD
+              {{ isSuperAdmin ? 'SA' : 'AD' }}
             </div>
           </div>
         </div>
@@ -125,7 +122,7 @@
             
             <!-- 1. AREA DIAGRAM BATANG -->
             <div class="w-full md:w-2/3 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between min-w-0">
-              <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider">Total Responden per-Kategori</h3>
+              <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider">Perusahaan Mengisi per-Kategori</h3>
               <div class="flex items-end justify-around h-44 pt-4 px-2 w-full border-b border-slate-100 pb-0">
                 <div v-for="cat in categoryBreakdown" :key="cat.name" class="flex flex-col items-center flex-1 mx-1 h-full justify-end relative">
                   
@@ -134,7 +131,7 @@
                   <div 
                     class="w-10 md:w-12 rounded-t-sm shadow-sm transition-all duration-700 min-h-[4px]"
                     :style="{ 
-                      height: (totalResponden > 0 ? (cat.count / totalResponden) * 110 : 0) + 'px',
+                      height: (totalCompaniesFilled > 0 ? (cat.count / totalCompaniesFilled) * 110 : 0) + 'px',
                       backgroundColor: cat.colorHex 
                     }"
                   ></div>
@@ -160,8 +157,9 @@
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4 text-slate-700">
                           <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6 0 3.375 3.375 0 0 1 6 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
                         </svg>
-                        <span class="text-sm font-bold text-slate-800">{{ totalResponden }}</span>
+                        <span class="text-sm font-bold text-slate-800">{{ totalResponden }} Orang</span>
                       </div>
+                      <span class="text-[9px] text-slate-400 font-medium">({{ totalCompaniesFilled }} Perusahaan)</span>
                     </div>
 
                     <div class="flex-1 bg-slate-50 p-2.5 rounded-xl flex flex-col justify-center">
@@ -172,6 +170,7 @@
                         </svg>
                         <span class="text-sm font-bold text-emerald-600">{{ overallSatisfaction }}/5.0</span>
                       </div>
+                      <span class="text-[9px] text-slate-400 font-medium">Rata-rata Keseluruhan</span>
                     </div>
                   </div>
 
@@ -233,7 +232,7 @@
           
           <!-- SECTION 1: KUISIONER (SKALA 4) -->
           <div class="mt-8 space-y-3">
-            <h3 class="text-base font-bold text-slate-800 tracking-tight">Kuisioner</h3>
+            <h3 class="text-base font-bold text-slate-800 tracking-tight">Kuisioner Evaluasi Layanan</h3>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
               <div v-for="card in kuesionerMetrics" :key="card.id" class="bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col justify-between overflow-hidden p-4">
                 <div>
@@ -262,7 +261,7 @@
 
           <!-- SECTION 2: LOYALITAS (SKALA 5) -->
           <div class="mt-8 space-y-3">
-            <h3 class="text-base font-bold text-slate-800 tracking-tight">Loyalitas</h3>
+            <h3 class="text-base font-bold text-slate-800 tracking-tight">Loyalitas Pelanggan</h3>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
               <div v-for="card in loyalitasMetrics" :key="card.id" class="bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col justify-between overflow-hidden p-4">
                 <div>
@@ -332,6 +331,7 @@
                 <thead class="bg-[#004B87] text-white font-bold uppercase">
                   <tr>
                     <th class="px-6 py-4">Company Name</th>
+                    <th class="px-6 py-4">Pengisi (Nama & Jabatan)</th>
                     <th class="px-6 py-4">Main Category</th>
                     <th class="px-6 py-4">Sub-Category</th>
                     <th class="px-6 py-4">Submission Date</th>
@@ -339,17 +339,21 @@
                 </thead>
                 <tbody class="divide-y divide-slate-100 font-medium text-slate-700">
                   <tr v-if="isLoading">
-                    <td colspan="4" class="px-6 py-8 text-center text-slate-400 animate-pulse">
+                    <td colspan="5" class="px-6 py-8 text-center text-slate-400 animate-pulse">
                       Synchronizing with data metrics pool...
                     </td>
                   </tr>
                   <tr v-else-if="filteredTableData.length === 0">
-                    <td colspan="4" class="px-6 py-8 text-center text-slate-400">
+                    <td colspan="5" class="px-6 py-8 text-center text-slate-400">
                       No matching survey responses found.
                     </td>
                   </tr>
                   <tr v-else v-for="(row, index) in filteredTableData" :key="index" class="hover:bg-slate-50 transition-colors">
                     <td class="px-6 py-4 text-[#004B87] font-bold">{{ row.company }}</td>
+                    <td class="px-6 py-4">
+                      <div class="font-bold text-slate-800">{{ row.namaPengisi }}</div>
+                      <div class="text-[10px] text-slate-400 font-normal">{{ row.jabatan }}</div>
+                    </td>
                     <td class="px-6 py-4">
                       <span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded text-[10px] font-bold border border-slate-200/60">{{ row.mainCat }}</span>
                     </td>
@@ -377,6 +381,65 @@
         </div>
       </div>
     </div>
+
+    <!-- MODAL POP-UP KONFIRMASI LOGOUT -->
+    <div 
+      v-if="showLogoutModal" 
+      class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm transition-all"
+    >
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-2xl w-full max-w-sm overflow-hidden transform transition-all">
+        
+        <div class="bg-[#004B87] px-6 py-4 flex items-center justify-between text-white">
+          <div class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12" />
+            </svg>
+            <h3 class="text-base font-extrabold tracking-tight">Konfirmasi Keluar</h3>
+          </div>
+          <button @click="showLogoutModal = false" class="text-white/80 hover:text-white transition-colors cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="p-6 space-y-4 text-center">
+          <div class="w-12 h-12 bg-rose-50 border border-rose-100 rounded-full flex items-center justify-center mx-auto text-rose-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12" />
+            </svg>
+          </div>
+
+          <div>
+            <h4 class="text-sm font-extrabold text-slate-800">Keluar dari Portal Admin?</h4>
+            <p class="text-xs text-slate-500 mt-1 font-medium leading-relaxed">
+              Sesi Anda akan diakhiri dan Anda perlu masuk kembali untuk mengakses portal.
+            </p>
+          </div>
+
+          <div class="pt-3 flex items-center justify-center gap-3 border-t border-slate-100">
+            <button 
+              type="button" 
+              @click="showLogoutModal = false"
+              class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold text-xs rounded-xl transition-colors cursor-pointer w-full"
+            >
+              Batal
+            </button>
+            
+            <button 
+              type="button"
+              @click="confirmLogout"
+              style="background-color: #e11d48 !important; color: #ffffff !important;"
+              class="px-5 py-2.5 hover:opacity-90 font-extrabold text-xs rounded-xl shadow-md transition-all cursor-pointer w-full flex items-center justify-center gap-1.5"
+            >
+              <span>Ya, Keluar</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -392,12 +455,15 @@ const isSidebarOpen = ref(true)
 const isLoading = ref(true)
 const searchFilter = ref('')
 
+const userRole = ref('')
+const isSuperAdmin = computed(() => userRole.value === 'superadmin')
+
 const tableData = ref([])
 const totalResponden = ref(0)
+const totalCompaniesFilled = ref(0)
 const lastUpdatedDate = ref('-')
 const subCategoryCounts = ref({ PLTA: 0, PDAM: 0, Industri: 0, PihakBerkepentingan: 0 })
 
-// 5 Kartu Kuisioner (Skala Maks 4.00)
 const kuesionerMetrics = ref([
   { id: 'tangible', title: 'Nyata (Tangible)', score: '0.00', icon: '🏢', textColor: 'text-green-500', barColor: 'bg-green-500' },
   { id: 'reliability', title: 'Kemampuan (Reliability)', score: '0.00', icon: '⚙️', textColor: 'text-blue-500', barColor: 'bg-blue-500' },
@@ -406,7 +472,6 @@ const kuesionerMetrics = ref([
   { id: 'empathy', title: 'Perhatian Khusus (Empathy)', score: '0.00', icon: '🤝', textColor: 'text-purple-500', barColor: 'bg-purple-500' }
 ])
 
-// 5 Kartu Loyalitas (Skala Maks 5.00)
 const loyalitasMetrics = ref([
   { id: 'kepuasan', title: 'Kepuasan Pelanggan', score: '0.00', icon: '😊', textColor: 'text-green-500', barColor: 'bg-green-500' },
   { id: 'kepercayaan', title: 'Kepercayaan', score: '0.00', icon: '🛡️', textColor: 'text-blue-500', barColor: 'bg-blue-500' },
@@ -422,7 +487,6 @@ const categoryBreakdown = computed(() => [
   { name: 'Pihak Berkepentingan', count: subCategoryCounts.value.PihakBerkepentingan, colorHex: '#DC80F7' }
 ])
 
-// KOMPUTASI METRIK KESELURUHAN
 const overallSatisfaction = computed(() => {
   const allScores = [...kuesionerMetrics.value, ...loyalitasMetrics.value].map(c => Number(c.score))
   const sum = allScores.reduce((acc, curr) => acc + curr, 0)
@@ -443,11 +507,9 @@ const lowestIndicator = computed(() => {
   return { title: sorted[0].title, score: sorted[0].score }
 })
 
-// State untuk Filter Dropdown
 const selectedCategory = ref('')
 const selectedMonthYear = ref('')
 
-// Computed List Bulan & Tahun Unik
 const availableDates = computed(() => {
   if (!tableData.value.length) return []
   const dates = tableData.value.map(item => {
@@ -458,7 +520,6 @@ const availableDates = computed(() => {
   return [...new Set(dates)]
 })
 
-// Logika Filtering
 const filteredTableData = computed(() => {
   let result = tableData.value
 
@@ -466,6 +527,8 @@ const filteredTableData = computed(() => {
     const query = searchFilter.value.toLowerCase().trim()
     result = result.filter(item => 
       (item.company || '').toLowerCase().includes(query) || 
+      (item.namaPengisi || '').toLowerCase().includes(query) || 
+      (item.jabatan || '').toLowerCase().includes(query) || 
       (item.mainCat || '').toLowerCase().includes(query) || 
       (item.subCat || '').toLowerCase().includes(query)
     )
@@ -473,7 +536,6 @@ const filteredTableData = computed(() => {
 
   if (selectedCategory.value) {
     const target = selectedCategory.value.toLowerCase().trim()
-    
     result = result.filter(item => {
       const main = (item.mainCat || '').toLowerCase().trim()
       const sub = (item.subCat || '').toLowerCase().trim()
@@ -507,7 +569,6 @@ const formatDate = (dateString) => {
 const calculateDashboardMetrics = (responses, respondentsList) => {
   if (!responses || responses.length === 0) return
 
-  // Mapping pertanyaan kuisioner (1-12) ke 5 Sub-dimensi (Skala 4)
   const kuesionerMapping = {
     tangible: [1, 2],
     reliability: [3, 4, 5],
@@ -516,68 +577,98 @@ const calculateDashboardMetrics = (responses, respondentsList) => {
     empathy: [10, 11, 12]
   }
 
-  // Mapping pertanyaan loyalitas (Skala 5)
   const loyaltyMapping = {
-    kepuasan: ['loyalitas_1', 1],
-    kepercayaan: ['loyalitas_2', 2],
-    keterikatan: ['loyalitas_3', 3],
-    permintaan: ['loyalitas_4', 4],
-    wom: ['loyalitas_5', 5]
+    kepuasan: ['loyalitas_13', 'loyalitas_1', '13', '1'],
+    kepercayaan: ['loyalitas_14', 'loyalitas_2', '14', '2'],
+    keterikatan: ['loyalitas_15', 'loyalitas_3', '15', '3'],
+    permintaan: ['loyalitas_16', 'loyalitas_4', '16', '4'],
+    wom: ['loyalitas_17', 'loyalitas_5', '17', '5']
   }
+
+  const companyDataMap = new Map()
+  const categoryCountsMap = { PLTA: 0, PDAM: 0, Industri: 0, PihakBerkepentingan: 0 }
+
+  responses.forEach(res => {
+    const matchRes = respondentsList ? respondentsList.find(r => r.id === res.respondent_id || r.id === res.id) : null
+    const r = matchRes || res || {}
+    
+    const companyRaw = r.company_name || r.company || r.nama_perusahaan || res.company_name || 'Unregistered'
+    const companyClean = String(companyRaw).trim().toLowerCase()
+
+    if (!companyDataMap.has(companyClean)) {
+      companyDataMap.set(companyClean, {
+        info: r,
+        responsesList: []
+      })
+
+      let subCat = r.sub_category || r.subCat || r.kategori_sub || ''
+      subCat = String(subCat).toLowerCase().trim()
+
+      if (subCat.includes('plta')) categoryCountsMap.PLTA++
+      else if (subCat.includes('pdam')) categoryCountsMap.PDAM++
+      else if (subCat.includes('industri') || subCat.includes('swasta')) categoryCountsMap.Industri++
+      else categoryCountsMap.PihakBerkepentingan++
+    }
+
+    companyDataMap.get(companyClean).responsesList.push(res)
+  })
+
+  totalCompaniesFilled.value = companyDataMap.size
+  subCategoryCounts.value = categoryCountsMap
 
   const kuesTotals = { tangible: { sum: 0, count: 0 }, reliability: { sum: 0, count: 0 }, responsiveness: { sum: 0, count: 0 }, assurance: { sum: 0, count: 0 }, empathy: { sum: 0, count: 0 } }
   const loyTotals = { kepuasan: { sum: 0, count: 0 }, kepercayaan: { sum: 0, count: 0 }, keterikatan: { sum: 0, count: 0 }, permintaan: { sum: 0, count: 0 }, wom: { sum: 0, count: 0 } }
 
-  const counts = { PLTA: 0, PDAM: 0, Industri: 0, PihakBerkepentingan: 0 }
+  companyDataMap.forEach((companyEntry) => {
+    const respList = companyEntry.responsesList
 
-  responses.forEach(res => {
-    const matchRes = respondentsList ? respondentsList.find(r => r.id === res.respondent_id) : null
-    const r = matchRes || {}
-    
-    let mainCat = r.category ? String(r.category).toLowerCase().trim() : ''
-    let subCat = r.sub_category ? String(r.sub_category).toLowerCase().trim() : ''
-
-    if (subCat.includes('plta')) {
-      counts.PLTA++
-    } else if (subCat.includes('pdam')) {
-      counts.PDAM++
-    } else if (subCat.includes('industri') || subCat.includes('swasta')) {
-      counts.Industri++
-    } else {
-      counts.PihakBerkepentingan++
-    }
-
-    const ans = res.answers || {}
-
-    // Hitung rata-rata sub-dimensi kuisioner (menggunakan nilai kepuasan skala 1-4)
     Object.keys(kuesionerMapping).forEach(dimId => {
-      kuesionerMapping[dimId].forEach(qId => {
-        const score = ans[`q${qId}_kepuasan`] !== undefined ? ans[`q${qId}_kepuasan`] : ans[qId]
-        if (score !== undefined && score !== null) {
-          kuesTotals[dimId].sum += Number(score)
-          kuesTotals[dimId].count++
-        }
+      let dimSumCompany = 0
+      let dimCountCompany = 0
+
+      respList.forEach(res => {
+        const ans = res.answers || res || {}
+        kuesionerMapping[dimId].forEach(qId => {
+          const score = ans[`q${qId}_kepuasan`] !== undefined ? ans[`q${qId}_kepuasan`] : (ans[qId] !== undefined ? ans[qId] : ans[`q${qId}`])
+          if (score !== undefined && score !== null && !isNaN(score)) {
+            dimSumCompany += Number(score)
+            dimCountCompany++
+          }
+        })
       })
+
+      if (dimCountCompany > 0) {
+        kuesTotals[dimId].sum += (dimSumCompany / dimCountCompany)
+        kuesTotals[dimId].count++
+      }
     })
 
-    // Hitung rata-rata loyalitas (skala 1-5)
     Object.keys(loyaltyMapping).forEach(loyId => {
-      const keys = loyaltyMapping[loyId]
-      let score = undefined
-      for (const k of keys) {
-        if (ans[k] !== undefined && ans[k] !== null) {
-          score = ans[k]
-          break
+      let loySumCompany = 0
+      let loyCountCompany = 0
+
+      respList.forEach(res => {
+        const ans = res.answers || res || {}
+        const keys = loyaltyMapping[loyId]
+        let score = undefined
+        for (const k of keys) {
+          if (ans[k] !== undefined && ans[k] !== null) {
+            score = ans[k]
+            break
+          }
         }
-      }
-      if (score !== undefined && score !== null) {
-        loyTotals[loyId].sum += Number(score)
+        if (score !== undefined && score !== null && !isNaN(score)) {
+          loySumCompany += Number(score)
+          loyCountCompany++
+        }
+      })
+
+      if (loyCountCompany > 0) {
+        loyTotals[loyId].sum += (loySumCompany / loyCountCompany)
         loyTotals[loyId].count++
       }
     })
   })
-
-  subCategoryCounts.value = counts
 
   kuesionerMetrics.value = kuesionerMetrics.value.map(card => {
     const d = kuesTotals[card.id]
@@ -598,14 +689,14 @@ const fetchDashboardData = async () => {
     
     const { data: responses, error: resError } = await supabase
       .from('questionnaire_responses')
-      .select('id, answers, created_at, respondent_id')
+      .select('*')
       .order('created_at', { ascending: false })
 
     if (resError) throw resError
 
     const { data: respondentsList, error: respError } = await supabase
       .from('respondents')
-      .select('id, company_name, category, sub_category')
+      .select('*')
 
     if (respError) throw respError
 
@@ -617,12 +708,15 @@ const fetchDashboardData = async () => {
       }
 
       tableData.value = responses.map(item => {
-        const r = respondentsList ? respondentsList.find(res => res.id === item.respondent_id) : null
-        const resObj = r || {}
+        const r = respondentsList ? respondentsList.find(res => res.id === item.respondent_id || res.id === item.id) : null
+        const resObj = r || item || {}
         
         let subColorBadge = 'bg-purple-50 text-purple-700 border border-purple-100'
-        let subCatText = resObj.sub_category ? String(resObj.sub_category).trim() : 'None'
-        let mainCatText = resObj.category ? String(resObj.category).trim() : 'Pemanfaat'
+        let subCatText = resObj.sub_category || resObj.subCat || 'None'
+        let mainCatText = resObj.category || resObj.mainCat || 'Pemanfaat'
+
+        subCatText = String(subCatText).trim()
+        mainCatText = String(mainCatText).trim()
 
         if (subCatText.toLowerCase().includes('plta')) subColorBadge = 'bg-blue-50 text-blue-700 border border-blue-100'
         else if (subCatText.toLowerCase().includes('pdam')) subColorBadge = 'bg-cyan-50 text-cyan-700 border border-cyan-100'
@@ -636,7 +730,9 @@ const fetchDashboardData = async () => {
 
         return {
           id: item.id,
-          company: resObj.company_name || 'No Name',
+          company: resObj.company_name || resObj.company || resObj.nama_perusahaan || 'No Name',
+          namaPengisi: resObj.nama_pengisi || resObj.nama || 'Anonim',
+          jabatan: resObj.jabatan || '-',
           mainCat: mainCatText,
           subCat: subCatText,
           date: formatDate(item.created_at),
@@ -654,17 +750,24 @@ const fetchDashboardData = async () => {
 }
 
 onMounted(() => {
+  userRole.value = localStorage.getItem('user_role') || 'admin'
   fetchDashboardData()
   if (window.innerWidth < 1024) {
     isSidebarOpen.value = false
   }
 })
 
-const handleLogout = () => {
-  if (confirm('Apakah Anda yakin ingin keluar dari Portal Admin?')) {
-    localStorage.removeItem('is_admin_logged_in')
-    router.push('/')
-  }
+const showLogoutModal = ref(false)
+
+const triggerLogoutPrompt = () => {
+  showLogoutModal.value = true
+}
+
+const confirmLogout = () => {
+  localStorage.removeItem('is_admin_logged_in')
+  localStorage.removeItem('user_role')
+  showLogoutModal.value = false
+  router.push('/')
 }
 </script>
 
