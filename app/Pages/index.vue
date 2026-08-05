@@ -119,7 +119,7 @@
                 :disabled="isSubmitting"
                 class="w-full bg-[#D9EAFD] text-[#004B87] hover:bg-white font-bold py-3.5 sm:py-4 px-6 rounded-xl flex items-center justify-center space-x-2 transition-all shadow-lg text-sm sm:text-base disabled:opacity-50"
               >
-                <span v-if="isSubmitting">Mendaftarkan Akses...</span>
+                <span v-if="isSubmitting">Memeriksa Akses...</span>
                 <span v-else>Mulai Isi Kuesioner</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -217,7 +217,6 @@ const filteredClients = computed(() => {
 const onSearchInput = () => {
   isDropdownOpen.value = true
   showError.value = false
-  // Jika user mengetik ulang, reset objek terpilih dulu
   if (selectedClient.value && selectedClient.value.company_name !== searchQuery.value) {
     selectedClient.value = null
   }
@@ -239,29 +238,31 @@ const navigateToQuestionnaire = async () => {
   try {
     isSubmitting.value = true
 
-    // Simpan ke tabel respondents
-    const { data, error } = await supabase
+    // 1. PENGECEKAN LIMITASI: Hitung berapa kali perusahaan ini sudah mengisi kuesioner
+    const { count, error: countError } = await supabase
       .from('respondents')
-      .insert([
-        { 
-          company_name: selectedClient.value.company_name, 
-          category: selectedClient.value.category, 
-          sub_category: selectedClient.value.sub_category 
-        }
-      ])
-      .select()
-      .single()
+      .select('*', { count: 'exact', head: true })
+      .eq('company_name', selectedClient.value.company_name)
 
-    if (error) throw error
+    if (countError) throw countError
 
-    // Simpan ID responden ke LocalStorage untuk digunakan di questionnaire.vue
-    localStorage.setItem('current_respondent_id', data.id)
-    localStorage.setItem('active_client_name', selectedClient.value.company_name)
+    // 2. JIKA SUDAH SERING ISI (>= 2 KALI), TAMPILKAN ALERT DAN HENTIKAN
+    if (count !== null && count >= 2) {
+      alert('Kuesioner sudah selesai diisi')
+      return
+    }
 
-    router.push('/questionnaire')
+    // 3. JIKA MASIH DIBAWAH LIMIT (< 2), SIMPAN PILIHAN SEMENTARA & CEK KE IDENTITAS
+    localStorage.setItem('pending_company_id', selectedClient.value.id)
+    localStorage.setItem('pending_company_name', selectedClient.value.company_name)
+    localStorage.setItem('pending_category', selectedClient.value.category)
+    localStorage.setItem('pending_sub_category', selectedClient.value.sub_category || 'None')
+
+    // Pindah ke file identitas baru untuk isi Nama & Jabatan
+    router.push('/identity')
   } catch (err) {
-    console.error('Gagal mendaftarkan responden:', err.message)
-    alert('Terjadi kesalahan mendaftarkan responden: ' + err.message)
+    console.error('Gagal memeriksa data responden:', err.message)
+    alert('Terjadi kesalahan sistem: ' + err.message)
   } finally {
     isSubmitting.value = false
   }
