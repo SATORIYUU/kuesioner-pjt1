@@ -16,7 +16,7 @@
           <!-- Sesi 1: Evaluasi Layanan -->
           <button 
             @click="currentSession = 0"
-            class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm transition-all text-left font-medium"
+            class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm transition-all text-left font-medium cursor-pointer"
             :class="currentSession === 0 
               ? 'bg-[#E6F0FA] text-[#004B87] font-bold shadow-sm' 
               : 'text-slate-500 hover:bg-slate-50 hover:text-slate-800'"
@@ -33,7 +33,7 @@
           <!-- Sesi 2: Pengukuran Loyalitas -->
           <button 
             @click="currentSession = 1"
-            class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm transition-all text-left font-medium"
+            class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm transition-all text-left font-medium cursor-pointer"
             :class="currentSession === 1 
               ? 'bg-[#E6F0FA] text-[#004B87] font-bold shadow-sm' 
               : 'text-slate-500 hover:bg-slate-50 hover:text-slate-800'"
@@ -50,7 +50,7 @@
           <!-- Sesi 3: Saran & Catatan -->
           <button 
             @click="currentSession = 2"
-            class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm transition-all text-left font-medium"
+            class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm transition-all text-left font-medium cursor-pointer"
             :class="currentSession === 2 
               ? 'bg-[#E6F0FA] text-[#004B87] font-bold shadow-sm' 
               : 'text-slate-500 hover:bg-slate-50 hover:text-slate-800'"
@@ -67,9 +67,18 @@
       </div>
 
       <div class="space-y-2 border-t border-slate-100 pt-4">
-        <button @click="goToHome" class="w-full flex items-center space-x-3 px-3 py-2 text-red-500 hover:text-red-700 text-sm font-medium text-left">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 11-6 0v-1m6-10V5a3 3 0 11-6 0v-1" /></svg>
-          <span>Keluar</span>
+        <button @click="goToHome" class="w-full flex items-center space-x-3 px-3 py-2 text-red-500 hover:text-red-700 text-sm font-medium text-left cursor-pointer">
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke-width="2" 
+            stroke="currentColor" 
+            class="h-5 w-5 shrink-0"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
+          </svg>
+          <span>Logout</span>
         </button>
       </div>
     </aside>
@@ -102,7 +111,7 @@
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                 <div>
                   <span class="font-bold text-[#004B87] block mb-1">Tingkat Kepuasan:</span>
-                  <div class="grid grid-cols-2 sm:grid-cols-4 gap-1 text-slate-600 font-medium">
+                  <div class="flex flex-wrap gap-x-3 gap-y-1 text-slate-600 font-medium">
                     <span>1: Tidak Baik 😡</span>
                     <span>2: Kurang Baik 🙁</span>
                     <span>3: Baik 😊</span>
@@ -111,7 +120,7 @@
                 </div>
                 <div>
                   <span class="font-bold text-amber-700 block mb-1">Tingkat Kepentingan:</span>
-                  <div class="grid grid-cols-2 sm:grid-cols-4 gap-1 text-slate-600 font-medium">
+                  <div class="flex flex-wrap gap-x-3 gap-y-1 text-slate-600 font-medium">
                     <span>1: Tidak Penting ⚪</span>
                     <span>2: Kurang Penting 🟡</span>
                     <span>3: Penting 🟠</span>
@@ -124,12 +133,12 @@
             <div class="flex items-center justify-between gap-2">
               <div>
                 <h1 class="text-xl sm:text-2xl font-bold text-slate-900">{{ currentSessionName }}</h1>
-                <p class="text-slate-400 text-xs sm:text-sm font-medium mt-0.5">
+                <p class="text-slate-500 text-xs sm:text-sm font-medium mt-1">
                   <template v-if="currentSession === 0">
-                    Berikan penilaian secara objektif pada setiap butir pertanyaan berdasarkan tingkat **Kepuasan** dan **Kepentingan**.
+                    Berikan penilaian secara objektif pada setiap butir pertanyaan berdasarkan tingkat Kepuasan dan Kepentingan.
                   </template>
                   <template v-else-if="currentSession === 1">
-                    Pilihlah **satu opsi pernyataan** pada setiap topik yang paling menggambarkan kondisi atau pandangan Anda.
+                    Pilihlah satu opsi pernyataan pada setiap topik yang paling menggambarkan kondisi atau pandangan Anda.
                   </template>
                   <template v-else>
                     Silakan tuliskan masukan, saran, atau kritik Anda untuk peningkatan layanan kami ke depan.
@@ -144,7 +153,7 @@
             </div>
           </div>
 
-          <!-- 1. TAMPILAN EVALUASI LAYANAN (12 PERTANYAAN DENGAN SUBTEMA & 2 KOLOM SKALA 1-4) -->
+          <!-- 1. TAMPILAN EVALUASI LAYANAN -->
           <div v-if="currentSession === 0" class="space-y-6">
             <div 
               v-for="(q, idx) in evalQuestions" 
@@ -168,7 +177,7 @@
                     v-if="answers[`q${q.id}_kepuasan`] || answers[`q${q.id}_kepentingan`]"
                     @click="resetQuestionAnswer(q.id)"
                     type="button"
-                    class="text-[10px] font-bold text-rose-500 hover:text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 px-2 py-0.5 rounded-full transition-all hover:scale-105 active:scale-95 flex items-center gap-1"
+                    class="text-[10px] font-bold text-rose-500 hover:text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 px-2 py-0.5 rounded-full transition-all hover:scale-105 active:scale-95 flex items-center gap-1 cursor-pointer"
                     title="Reset Pilihan Pertanyaan Ini"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -250,7 +259,7 @@
                   v-if="answers[`loyalitas_${group.id}`]"
                   @click="answers[`loyalitas_${group.id}`] = null"
                   type="button"
-                  class="text-[10px] font-bold text-rose-500 hover:text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 px-2.5 py-1 rounded-full transition-all hover:scale-105 active:scale-95 flex items-center gap-1 shrink-0 self-start sm:self-auto"
+                  class="text-[10px] font-bold text-rose-500 hover:text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 px-2.5 py-1 rounded-full transition-all hover:scale-105 active:scale-95 flex items-center gap-1 shrink-0 self-start sm:self-auto cursor-pointer"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -296,12 +305,12 @@
 
           <!-- BUTTON NAVIGASI BAWAH -->
           <div class="flex items-center justify-between pt-2 sm:pt-4 gap-4">
-            <button @click="handleBack" type="button" class="bg-white border-2 border-slate-200 hover:border-slate-400 text-slate-600 font-bold py-2.5 sm:py-3 px-5 sm:px-6 rounded-xl flex items-center justify-center space-x-2 transition-all hover:scale-105 active:scale-95 text-sm shadow-sm">
+            <button @click="handleBack" type="button" class="bg-white border-2 border-slate-200 hover:border-slate-400 text-slate-600 font-bold py-2.5 sm:py-3 px-5 sm:px-6 rounded-xl flex items-center justify-center space-x-2 transition-all hover:scale-105 active:scale-95 text-sm shadow-sm cursor-pointer">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
               <span>{{ currentSession === 0 ? 'Batal' : 'Kembali' }}</span>
             </button>
             
-            <button @click="handleNext" type="button" class="bg-[#004B87] hover:bg-sky-900 text-white font-bold py-2.5 sm:py-3 px-6 sm:px-8 rounded-xl flex items-center justify-center space-x-2 transition-all hover:scale-105 active:scale-95 shadow-md text-sm">
+            <button @click="handleNext" type="button" class="bg-[#004B87] hover:bg-sky-900 text-white font-bold py-2.5 sm:py-3 px-6 sm:px-8 rounded-xl flex items-center justify-center space-x-2 transition-all hover:scale-105 active:scale-95 shadow-md text-sm cursor-pointer">
               <span>{{ currentSession === 2 ? 'Kirim Kuesioner' : 'Simpan & Lanjutkan' }}</span>
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
             </button>
@@ -347,7 +356,6 @@ const likertOptions = {
   ]
 }
 
-// Subtema mapping untuk 12 butir evaluasi berdasarkan Kuesioner.xlsx
 const subthemesMap = {
   1: 'Nyata (Tangible)',
   2: 'Nyata (Tangible)',
@@ -363,92 +371,95 @@ const subthemesMap = {
   12: 'Perhatian Khusus (Empathy)'
 }
 
+const defaultLoyaltyOptionsMap = {
+  'Kepuasan Pelanggan': [
+    'Saya menyukai layanan jasa air baku dari pihak selain Perum Jasa Tirta I yang lebih menguntungkan usaha saya.',
+    'Saya tidak mengalami ketidakpuasan selama menjadi pelanggan layanan jasa air baku Perum Jasa Tirta I dan saya sudah terbiasa menjadi pelanggan.',
+    'Saya puas dengan layanan jasa air baku Perum Jasa Tirta I, tapi bila ada layanan sejenis dari pihak lain yang lebih murah saya akan beralih.',
+    'Saya menyukai layanan jasa air baku Perum Jasa Tirta I dan akan lebih puas jika menggunakan layanan PJT I dibanding pihak lain.',
+    'Saya sangat puas dengan layanan jasa air baku Perum Jasa Tirta I dan saya akan merekomendasikan layanan tersebut kepada rekan-rekan saya.'
+  ],
+  'Kepercayaan (Trust)': [
+    'Saya tidak memiliki kepercayaan khusus terhadap Perum Jasa Tirta I, saya lebih mengutamakan prinsip ekonomi dalam bisnis saya.',
+    'Saya biasa mempercayakan pemenuhan kebutuhan air baku saya pada layanan jasa air baku Perum Jasa Tirta I.',
+    'Saya percaya pada layanan Perum Jasa Tirta I, tapi ada kemungkinan saya beralih ke penyedia jasa lain yang lebih terpercaya.',
+    'Saya benar-benar percaya pada kerjasama yang saya jalin dengan Perum Jasa Tirta I.',
+    'Saya bangga mempercayakan pemenuhan air baku saya pada layanan jasa air Perum Jasa Tirta I.'
+  ],
+  'Keterikatan Pelanggan': [
+    'Saya sering berpindah-pindah penyedia jasa layanan air baku, saya jarang terikat pada satu jenis layanan/perusahaan.',
+    'Sudah menjadi kebiasaan saya meminta Perum Jasa Tirta I untuk memenuhi kebutuhan air baku saya.',
+    'Saya tidak pernah dikecewakan oleh PJT I, tapi saya tidak memiliki komitmen khusus untuk selalu bekerjasama.',
+    'Saya yakin layanan PJT I lebih baik dari pihak lain, mungkin saya akan terus melanjutkan kerjasama.',
+    'Saya yakin layanan PJT I lebih baik dari pihak lain dan saya memiliki komitmen untuk terus bekerjasama.'
+  ],
+  'Permintaan Ulang': [
+    'Saya jarang / tidak pernah melakukan permintaan ulang terhadap layanan jasa air baku PJT I secara berturut-turut.',
+    'Saya biasa meminta layanan jasa air baku PJT I, tapi jarang melakukan permintaan ulang secara berturut-turut.',
+    'Setidaknya saya pernah melakukan permintaan ulang terhadap layanan jasa air baku PJT I sebanyak tiga kali berturut-turut.',
+    'Saya selalu meminta layanan jasa air baku Perum Jasa Tirta I karena saya menyukai layanan tersebut.',
+    'Saya akan selalu menjadi pelanggan setia PJT I dan selalu meminta layanannya karena bangga menjalin kerjasama.'
+  ],
+  'Word of Mouth Behavior': [
+    'Saya tidak pernah berniat merekomendasikan layanan jasa air baku Perum Jasa Tirta I kepada rekan atau kolega saya.',
+    'Saya biasa menggunakan layanan PJT I dan merekomendasikannya bila ada rekan yang menanyakannya.',
+    'Saya puas menggunakan layanan PJT I, bila ada rekan meminta rekomendasi maka saya merekomendasikannya sebagai alternatif.',
+    'Saya menyukai layanan PJT I dan merekomendasikan layanannya bila ada rekan yang membutuhkan informasi.',
+    'Saya senang dan bangga menjadi pelanggan PJT I, sehingga tanpa diminta saya akan menceritakan pengalaman positif kepada rekan.'
+  ]
+}
+
 const evalQuestions = ref([])
+const loyaltyGroups = ref([])
 const answers = ref({})
 
-// Reset jawaban per-pertanyaan evaluasi
 const resetQuestionAnswer = (qId) => {
   delete answers.value[`q${qId}_kepuasan`]
   delete answers.value[`q${qId}_kepentingan`]
 }
 
-// Data Opsi Pilihan Tunggal untuk Pengukuran Loyalitas Pelanggan
-const loyaltyGroups = ref([
-  {
-    id: 1,
-    title: '1. Kepuasan Pelanggan',
-    options: [
-      { val: 1, text: 'Saya menyukai layanan jasa air baku dari pihak selain Perum Jasa Tirta I yang lebih menguntungkan usaha saya.' },
-      { val: 2, text: 'Saya tidak mengalami ketidakpuasan selama menjadi pelanggan layanan jasa air baku Perum Jasa Tirta I dan saya sudah terbiasa menjadi pelanggan.' },
-      { val: 3, text: 'Saya puas dengan layanan jasa air baku Perum Jasa Tirta I, tapi bila ada layanan sejenis dari pihak lain yang lebih murah saya akan beralih.' },
-      { val: 4, text: 'Saya menyukai layanan jasa air baku Perum Jasa Tirta I dan akan lebih puas jika menggunakan layanan PJT I dibanding pihak lain.' },
-      { val: 5, text: 'Saya sangat puas dengan layanan jasa air baku Perum Jasa Tirta I dan saya akan merekomendasikan layanan tersebut kepada rekan-rekan saya.' }
-    ]
-  },
-  {
-    id: 2,
-    title: '2. Kepercayaan (Trust)',
-    options: [
-      { val: 1, text: 'Saya tidak memiliki kepercayaan khusus terhadap Perum Jasa Tirta I, saya lebih mengutamakan prinsip ekonomi dalam bisnis saya.' },
-      { val: 2, text: 'Saya biasa mempercayakan pemenuhan kebutuhan air baku saya pada layanan jasa air baku Perum Jasa Tirta I.' },
-      { val: 3, text: 'Saya percaya pada layanan Perum Jasa Tirta I, tapi ada kemungkinan saya beralih ke penyedia jasa lain yang lebih terpercaya.' },
-      { val: 4, text: 'Saya benar-benar percaya pada kerjasama yang saya jalin dengan Perum Jasa Tirta I.' },
-      { val: 5, text: 'Saya bangga mempercayakan pemenuhan air baku saya pada layanan jasa air Perum Jasa Tirta I.' }
-    ]
-  },
-  {
-    id: 3,
-    title: '3. Keterikatan Pelanggan',
-    options: [
-      { val: 1, text: 'Saya sering berpindah-pindah penyedia jasa layanan air baku, saya jarang terikat pada satu jenis layanan/perusahaan.' },
-      { val: 2, text: 'Sudah menjadi kebiasaan saya meminta Perum Jasa Tirta I untuk memenuhi kebutuhan air baku saya.' },
-      { val: 3, text: 'Saya tidak pernah dikecewakan oleh PJT I, tapi saya tidak memiliki komitmen khusus untuk selalu bekerjasama.' },
-      { val: 4, text: 'Saya yakin layanan PJT I lebih baik dari pihak lain, mungkin saya akan terus melanjutkan kerjasama.' },
-      { val: 5, text: 'Saya yakin layanan PJT I lebih baik dari pihak lain dan saya memiliki komitmen untuk terus bekerjasama.' }
-    ]
-  },
-  {
-    id: 4,
-    title: '4. Permintaan Ulang',
-    options: [
-      { val: 1, text: 'Saya jarang / tidak pernah melakukan permintaan ulang terhadap layanan jasa air baku PJT I secara berturut-turut.' },
-      { val: 2, text: 'Saya biasa meminta layanan jasa air baku PJT I, tapi jarang melakukan permintaan ulang secara berturut-turut.' },
-      { val: 3, text: 'Setidaknya saya pernah melakukan permintaan ulang terhadap layanan jasa air baku PJT I sebanyak tiga kali berturut-turut.' },
-      { val: 4, text: 'Saya selalu meminta layanan jasa air baku Perum Jasa Tirta I karena saya menyukai layanan tersebut.' },
-      { val: 5, text: 'Saya akan selalu menjadi pelanggan setia PJT I dan selalu meminta layanannya karena bangga menjalin kerjasama.' }
-    ]
-  },
-  {
-    id: 5,
-    title: '5. Word-of-Mouth Behavior',
-    options: [
-      { val: 1, text: 'Saya tidak pernah berniat merekomendasikan layanan jasa air baku Perum Jasa Tirta I kepada rekan atau kolega saya.' },
-      { val: 2, text: 'Saya biasa menggunakan layanan PJT I dan merekomendasikannya bila ada rekan yang menanyakannya.' },
-      { val: 3, text: 'Saya puas menggunakan layanan PJT I, bila ada rekan meminta rekomendasi maka saya merekomendasikannya sebagai alternatif.' },
-      { val: 4, text: 'Saya menyukai layanan PJT I dan merekomendasikan layanannya bila ada rekan yang membutuhkan informasi.' },
-      { val: 5, text: 'Saya senang dan bangga menjadi pelanggan PJT I, sehingga tanpa diminta saya akan menceritakan pengalaman positif kepada rekan.' }
-    ]
-  }
-])
-
+// FETCH SEMUA PERTANYAAN DARI SUPABASE (EVALUASI + LOYALITAS DYNAMIC)
 const fetchQuestionsFromDB = async () => {
   try {
     isLoading.value = true
     const { data, error } = await supabase
       .from('questions')
-      .select('id, question_text, dimension')
+      .select('id, question_text, dimension, kategori, options')
       .order('id', { ascending: true })
 
     if (error) throw error
 
     if (data) {
       evalQuestions.value = data
-        .filter(item => item.id <= 12)
+        .filter(item => !item.kategori || item.kategori === 'Evaluasi Layanan')
         .map(item => ({
           id: item.id,
           text: item.question_text,
-          subtheme: subthemesMap[item.id] || 'Umum'
+          subtheme: item.dimension || subthemesMap[item.id] || 'Umum'
         }))
+
+      loyaltyGroups.value = data
+        .filter(item => item.kategori === 'Loyalitas Pelanggan')
+        .map((item, index) => {
+          const rawOptions = (item.options && Array.isArray(item.options) && item.options.length === 5)
+            ? item.options
+            : (defaultLoyaltyOptionsMap[item.dimension] || [
+                'Pernyataan Skala 1 (Sangat Rendah)',
+                'Pernyataan Skala 2 (Rendah)',
+                'Pernyataan Skala 3 (Sedang)',
+                'Pernyataan Skala 4 (Tinggi)',
+                'Pernyataan Skala 5 (Sangat Tinggi)'
+              ])
+
+          return {
+            id: item.id,
+            title: `${index + 1}. ${item.dimension || 'Topik Loyalitas'} - ${item.question_text}`,
+            options: rawOptions.map((optText, oIdx) => ({
+              val: oIdx + 1,
+              text: optText
+            }))
+          }
+        })
     }
   } catch (err) {
     console.error('Gagal mengambil data pertanyaan dari Supabase:', err.message)
@@ -492,30 +503,66 @@ const handleNext = async () => {
   } 
   else {
     try {
-      const respondentId = localStorage.getItem('current_respondent_id')
-      if (!respondentId) {
+      const companyName = localStorage.getItem('active_client_name') || localStorage.getItem('pending_company_name')
+      const namaPengisi = localStorage.getItem('pending_nama_pengisi')
+      const jabatanPengisi = localStorage.getItem('pending_jabatan')
+      const phonePengisi = localStorage.getItem('pending_phone') || null
+      const emailPengisi = localStorage.getItem('pending_email') || null
+      const category = localStorage.getItem('pending_category')
+      const subCategory = localStorage.getItem('pending_sub_category')
+
+      if (!companyName || !namaPengisi) {
         alert('Sesi pengisian telah berakhir. Silakan isi kembali dari halaman awal.')
         router.push('/')
         return
       }
 
-      const { error } = await supabase
+      // A. Insert ke tabel respondents dengan data lengkap (Termasuk phone & email)
+      const { data: newRespondent, error: respError } = await supabase
+        .from('respondents')
+        .insert([
+          {
+            company_name: companyName,
+            category: category || 'Pemanfaat',
+            sub_category: (!subCategory || subCategory === 'None') ? null : subCategory,
+            nama_pengisi: namaPengisi,
+            jabatan: jabatanPengisi,
+            phone: phonePengisi,
+            email: emailPengisi
+          }
+        ])
+        .select()
+        .single()
+
+      if (respError) throw respError
+
+      // B. Insert jawaban ke questionnaire_responses menggunakan ID responden yang baru dibuat
+      const { error: responseError } = await supabase
         .from('questionnaire_responses')
         .insert([
           {
-            respondent_id: respondentId,
+            respondent_id: newRespondent.id,
             answers: answers.value,
             feedback: saranText.value.trim() !== '' ? saranText.value.trim() : null
           }
         ])
 
-      if (error) throw error
+      if (responseError) throw responseError
 
-      localStorage.removeItem('current_respondent_id')
+      // C. Bersihkan seluruh data sementara dari localStorage
+      localStorage.removeItem('pending_nama_pengisi')
+      localStorage.removeItem('pending_jabatan')
+      localStorage.removeItem('pending_phone')
+      localStorage.removeItem('pending_email')
+      localStorage.removeItem('active_client_name')
+      localStorage.removeItem('pending_company_name')
+      localStorage.removeItem('pending_category')
+      localStorage.removeItem('pending_sub_category')
+
       router.push('/confirmation')
     } catch (err) {
       console.error('Gagal mengirimkan kuesioner:', err.message)
-      alert('Terjadi kesalahan saat menyimpan data kuesioner. Silakan periksa koneksi Anda dan coba lagi.')
+      alert('Terjadi kesalahan saat menyimpan data kuesioner: ' + err.message)
     }
   }
 }
