@@ -63,10 +63,6 @@
     <p class="text-sky-200/80">© 2026 Perum Jasa Tirta. All rights reserved.</p>
   </div>
   <div class="flex flex-wrap justify-center sm:justify-end gap-x-4 gap-y-2 sm:gap-x-6 font-medium text-sky-100">
-    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
-    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
-    <a href="#" class="hover:text-white transition-colors">Sustainability Report</a>
-    <a href="#" class="hover:text-white transition-colors">Contact Support</a>
   </div>
 </footer>
 
