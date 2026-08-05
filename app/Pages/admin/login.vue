@@ -85,12 +85,13 @@
           <div class="pt-2">
             <button 
               type="submit" 
-              class="w-full bg-[#004B87] hover:bg-sky-900 text-white font-bold py-3.5 px-6 rounded-xl flex items-center justify-center space-x-2 transition-all shadow-md text-sm sm:text-base cursor-pointer"
+              :disabled="isSubmitting"
+              class="w-full bg-[#004B87] hover:bg-sky-900 text-white font-bold py-3.5 px-6 rounded-xl flex items-center justify-center space-x-2 transition-all shadow-md text-sm sm:text-base cursor-pointer disabled:opacity-50"
             >
-              <span>Login</span>
+              <span>{{ isSubmitting ? 'Memproses...' : 'Login' }}</span>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4 transform group-hover:translate-x-1 transition-transform duration-200">
-           <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-        </svg>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+              </svg>
             </button>
           </div>
         </form>
@@ -126,23 +127,41 @@ const supabase = useSupabaseClient()
 const email = ref('')
 const password = ref('')
 const showPassword = ref(false)
+const isSubmitting = ref(false)
 
 const handleLogin = async () => {
   try {
-    // Proses otentikasi login resmi menggunakan fungsi bawaan Supabase Auth
-    const { error } = await supabase.auth.signInWithPassword({
-      email: email.value.trim(),
+    isSubmitting.value = true
+    const inputEmail = email.value.trim().toLowerCase()
+
+    // 1. Otentikasi Akun di Supabase Auth
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: inputEmail,
       password: password.value
     })
 
     if (error) throw error
 
-    // Jika kredensial cocok, langsung lempar admin menuju halaman utama dashboard
+    // 2. Tentukan Role Otomatis Berdasarkan Email
+    let userRole = 'admin'
+    
+    // Jika email yang login adalah admin1@gmail.com, berikan akses superadmin
+    if (inputEmail === 'admin1@gmail.com') {
+      userRole = 'superadmin'
+    }
+
+    // 3. Simpan Sesi & Role ke localStorage
+    localStorage.setItem('is_admin_logged_in', 'true')
+    localStorage.setItem('user_role', userRole)
+
+    // 4. Arahkan ke Dashboard Admin
     router.push('/admin/dashboard')
+
   } catch (err) {
     console.error('Login bermasalah:', err.message)
     alert('Gagal masuk. Periksa kembali kombinasi Email dan Kata Sandi Anda.')
+  } finally {
+    isSubmitting.value = false
   }
 }
-
 </script>
