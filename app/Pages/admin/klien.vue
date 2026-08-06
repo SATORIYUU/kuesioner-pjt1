@@ -34,7 +34,7 @@
           :class="route.path === '/admin/dashboard' ? 'bg-blue-50 text-[#004B87] font-bold border-l-4 border-[#004B87]' : 'text-slate-600 hover:bg-slate-50 font-medium'"
           class="flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2h-2a2 2 0 01-2-2v-2z" /></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v-2a2 2 0 01-2-2v-2z" /></svg>
           <span>Overview</span>
         </NuxtLink>
         
@@ -94,8 +94,80 @@
           <h1 class="text-base sm:text-xl font-extrabold text-slate-800 tracking-tight">Perum Jasa Tirta 1</h1>
         </div>
 
-        <div class="flex items-center space-x-6 sm:space-x-8">
-          <div class="flex items-center space-x-3 border-l border-slate-200 pl-6 h-9">
+        <div class="flex items-center space-x-3 sm:space-x-6">
+          
+          <!-- IKON NOTIFIKASI LONCENG RESPONDEN BARU -->
+          <div class="relative">
+            <button 
+              @click="toggleNotification" 
+              class="relative p-2 text-slate-500 hover:text-[#004B87] hover:bg-slate-50 rounded-xl transition-all focus:outline-none border border-transparent hover:border-slate-200 cursor-pointer"
+              title="Notifikasi Responden Baru"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+              </svg>
+
+              <!-- BADGE MERAH COUNTER (PROPOSIONAL & BULAT RAPI) -->
+              <span 
+                v-if="hasUnread && unreadCount > 0" 
+                class="absolute -top-0.5 -right-0.5 bg-rose-500 text-white text-[11px] font-bold h-5 min-w-[20px] px-1.5 rounded-full flex items-center justify-center border-2 border-white shadow-sm leading-none animate-pulse"
+              >
+                {{ unreadCount > 9 ? '9+' : unreadCount }}
+              </span>
+            </button>
+
+            <!-- DROPDOWN BOX NOTIFIKASI -->
+            <div 
+              v-if="isNotificationOpen" 
+              class="absolute right-0 top-full mt-2 w-72 sm:w-80 bg-white rounded-2xl border border-slate-200 shadow-2xl overflow-hidden z-50 transition-all duration-200"
+            >
+              <div class="p-3.5 sm:p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/80">
+                <h3 class="text-xs font-black text-slate-800 uppercase tracking-wider">Responden Baru</h3>
+                <span class="bg-blue-100 text-[#004B87] text-[10px] font-extrabold px-2.5 py-0.5 rounded-full">
+                  {{ notificationsList.length }} Baru
+                </span>
+              </div>
+
+              <div class="max-h-80 overflow-y-auto divide-y divide-slate-100 custom-scrollbar">
+                <div v-if="notificationsList.length === 0" class="p-6 text-center">
+                  <div class="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-2 text-slate-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                    </svg>
+                  </div>
+                  <p class="text-xs text-slate-400 font-medium">Belum ada respon baru.</p>
+                </div>
+
+                <div 
+                  v-else 
+                  v-for="notif in notificationsList" 
+                  :key="notif.id" 
+                  @click="navigateToRespondents"
+                  class="p-3.5 hover:bg-blue-50/50 transition-colors cursor-pointer flex gap-3 items-start"
+                >
+                  <div class="w-8 h-8 rounded-lg bg-blue-50 text-[#004B87] flex items-center justify-center shrink-0 mt-0.5 border border-blue-100/60">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-xs font-bold text-slate-800 truncate">{{ notif.company_name }}</p>
+                    <p class="text-[11px] text-slate-500 truncate">{{ notif.nama_pengisi }} baru mengisi kuesioner.</p>
+                    <span class="text-[10px] text-slate-400 font-medium mt-1 block">{{ notif.time_ago }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-3 border-t border-slate-100 bg-slate-50 text-center">
+                <NuxtLink to="/admin/respondents" @click="isNotificationOpen = false" class="text-xs font-bold text-[#004B87] hover:underline">
+                  Lihat Semua Data Responden →
+                </NuxtLink>
+              </div>
+            </div>
+          </div>
+
+          <!-- USER PROFILE DATA -->
+          <div class="flex items-center space-x-3 border-l border-slate-200 pl-4 sm:pl-6 h-9">
             <div class="hidden sm:block text-right">
               <p class="text-sm font-bold text-slate-900 leading-none">
                 {{ isSuperAdmin ? 'User2' : 'User1' }}
@@ -104,10 +176,11 @@
                 {{ isSuperAdmin ? 'Superadmin' : 'Admin' }}
               </p>
             </div>
-            <div class="h-9 w-9 rounded-full bg-[#004B87] text-white flex items-center justify-center font-bold text-sm shadow-sm shrink-0">
+            <div class="h-8 w-8 sm:h-9 sm:w-9 rounded-full bg-[#004B87] text-white flex items-center justify-center font-bold text-xs sm:text-sm shadow-sm shrink-0">
               {{ isSuperAdmin ? 'SA' : 'AD' }}
             </div>
           </div>
+
         </div>
       </header>
 
@@ -254,7 +327,7 @@
                         </svg>
                       </button>
 
-                      <!-- FITUR BARU: HAPUS KLIEN -->
+                      <!-- HAPUS KLIEN -->
                       <button 
                         @click="triggerDeletePrompt(item)" 
                         type="button"
@@ -279,9 +352,7 @@
 
     </div>
 
-    <!-- ========================================== -->
-    <!-- 1. MODAL POP-UP EDIT KETERANGAN KLIEN     -->
-    <!-- ========================================== -->
+    <!-- MODAL POP-UP EDIT KETERANGAN KLIEN -->
     <div 
       v-if="showEditModal" 
       class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm transition-all"
@@ -335,9 +406,7 @@
       </div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- 2. MODAL POP-UP TAMBAH KLIEN BARU          -->
-    <!-- ========================================== -->
+    <!-- MODAL POP-UP TAMBAH KLIEN BARU -->
     <div 
       v-if="showAddModal" 
       class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm transition-all"
@@ -421,9 +490,7 @@
       </div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- 3. MODAL POP-UP KONFIRMASI HAPUS KLIEN     -->
-    <!-- ========================================== -->
+    <!-- MODAL POP-UP KONFIRMASI HAPUS KLIEN -->
     <div 
       v-if="showDeleteModal" 
       class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm transition-all"
@@ -482,9 +549,7 @@
       </div>
     </div>
 
-    <!-- ======================================================= -->
-    <!-- 4. MODAL POP-UP KONFIRMASI LOGOUT                       -->
-    <!-- ======================================================= -->
+    <!-- MODAL POP-UP KONFIRMASI LOGOUT -->
     <div 
       v-if="showLogoutModal" 
       class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm transition-all"
@@ -546,7 +611,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
@@ -557,6 +622,21 @@ const isSidebarOpen = ref(true)
 const isLoading = ref(true)
 const isSaving = ref(false)
 const clientList = ref([])
+
+// STATE NOTIFIKASI LONCENG
+const isNotificationOpen = ref(false)
+const notificationsList = ref([])
+const hasUnread = ref(false)
+const unreadCount = ref(0)
+
+const toggleNotification = () => {
+  isNotificationOpen.value = !isNotificationOpen.value
+  if (isNotificationOpen.value) {
+    hasUnread.value = false
+    unreadCount.value = 0
+    localStorage.setItem('notif_read_status', 'true')
+  }
+}
 
 // HAK AKSES SUPERADMIN
 const userRole = ref('')
@@ -572,6 +652,7 @@ const triggerLogoutPrompt = () => {
 const confirmLogout = () => {
   localStorage.removeItem('is_admin_logged_in')
   localStorage.removeItem('user_role')
+  localStorage.removeItem('notif_read_status')
   showLogoutModal.value = false
   router.push('/')
 }
@@ -599,6 +680,54 @@ const searchQuery = ref('')
 const selectedCategory = ref('')
 const selectedSubCategory = ref('')
 const selectedStatus = ref('')
+
+// FETCH NOTIFIKASI SUPABASE (DENGAN PEMERIKSAAN LOCALSTORAGE)
+const fetchNotifications = async (isNewInsert = false) => {
+  try {
+    const { data: responses } = await supabase
+      .from('questionnaire_responses')
+      .select('id, created_at, respondent_id')
+      .order('created_at', { ascending: false })
+      .limit(5)
+
+    if (!responses) return
+
+    const { data: respondentsList } = await supabase
+      .from('respondents')
+      .select('id, company_name, nama_pengisi, jabatan')
+
+    notificationsList.value = responses.map(res => {
+      const match = respondentsList?.find(r => r.id === res.respondent_id || r.id === res.id)
+      return {
+        id: res.id,
+        company_name: match?.company_name || 'Perusahaan Baru',
+        nama_pengisi: match?.nama_pengisi || 'Anonim',
+        time_ago: new Date(res.created_at).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
+      }
+    })
+
+    const isRead = localStorage.getItem('notif_read_status') === 'true'
+
+    if (isNewInsert) {
+      localStorage.removeItem('notif_read_status')
+      hasUnread.value = true
+      unreadCount.value = unreadCount.value + 1
+    } else if (!isRead && notificationsList.value.length > 0) {
+      hasUnread.value = true
+      unreadCount.value = notificationsList.value.length
+    } else {
+      hasUnread.value = false
+      unreadCount.value = 0
+    }
+  } catch (err) {
+    console.error('Gagal mengambil notifikasi:', err)
+  }
+}
+
+const navigateToRespondents = () => {
+  isNotificationOpen.value = false
+  router.push('/admin/respondents')
+}
 
 const fetchClients = async () => {
   try {
@@ -718,7 +847,7 @@ const confirmDeleteClient = async () => {
 
     showDeleteModal.value = false
     clientToDelete.value = null
-    fetchClients() // Refresh daftar klien
+    fetchClients()
   } catch (err) {
     alert('Gagal menghapus klien: ' + err.message)
   } finally {
@@ -762,11 +891,29 @@ const resetFilters = () => {
   selectedStatus.value = ''
 }
 
+// REALTIME SUPABASE LISTENER FOR NOTIFICATIONS
+let realtimeChannel = null
+
 onMounted(() => {
   userRole.value = localStorage.getItem('user_role') || 'admin'
   fetchClients()
+  fetchNotifications()
+
   if (window.innerWidth < 1024) {
     isSidebarOpen.value = false
+  }
+
+  realtimeChannel = supabase
+    .channel('public:klien_questionnaire_responses')
+    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'questionnaire_responses' }, () => {
+      fetchNotifications(true)
+    })
+    .subscribe()
+})
+
+onUnmounted(() => {
+  if (realtimeChannel) {
+    supabase.removeChannel(realtimeChannel)
   }
 })
 </script>

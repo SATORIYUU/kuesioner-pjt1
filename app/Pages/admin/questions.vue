@@ -31,15 +31,17 @@
       <nav class="flex-1 px-4 space-y-2 mt-4">
         <NuxtLink 
           to="/admin/dashboard" 
+          @click="closeSidebarAndNotif"
           :class="route.path === '/admin/dashboard' ? 'bg-blue-50 text-[#004B87] font-bold border-l-4 border-[#004B87]' : 'text-slate-600 hover:bg-slate-50 font-medium'"
           class="flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2h-2a2 2 0 01-2-2v-2z" /></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2h-2a2 2 0 01-2-2v-2z" /></svg>
           <span>Overview</span>
         </NuxtLink>
         
         <NuxtLink 
           to="/admin/klien" 
+          @click="closeSidebarAndNotif"
           :class="route.path === '/admin/klien' ? 'bg-blue-50 text-[#004B87] font-bold border-l-4 border-[#004B87]' : 'text-slate-600 hover:bg-slate-50 font-medium'"
           class="flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200"
         >
@@ -51,15 +53,17 @@
 
         <NuxtLink 
           to="/admin/respondents" 
+          @click="closeSidebarAndNotif"
           :class="route.path === '/admin/respondents' ? 'bg-blue-50 text-[#004B87] font-bold border-l-4 border-[#004B87]' : 'text-slate-600 hover:bg-slate-50 font-medium'"
           class="flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>
           <span>Data Responden</span>
         </NuxtLink>
 
         <NuxtLink 
           to="/admin/questions" 
+          @click="closeSidebarAndNotif"
           :class="route.path === '/admin/questions' ? 'bg-blue-50 text-[#004B87] font-bold border-l-4 border-[#004B87]' : 'text-slate-600 hover:bg-slate-50 font-medium'"
           class="flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200"
         >
@@ -70,7 +74,7 @@
         </NuxtLink>
       </nav>
 
-      <!-- MODIFIKASI TOMBOL LOGOUT UNTUK MEMICU POPUP -->
+      <!-- TOMBOL LOGOUT SIDEBAR -->
       <div class="p-4 border-t border-slate-200">
         <button @click="triggerLogoutPrompt" class="flex items-center space-x-3 px-4 py-3 w-full text-slate-600 hover:text-red-600 hover:bg-red-50 font-medium rounded-xl transition-colors cursor-pointer">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-5 w-5 shrink-0">
@@ -87,15 +91,87 @@
       <!-- NAVBAR HEADER -->
       <header class="bg-white border-b border-slate-200 h-16 flex items-center justify-between px-4 sm:px-8 shrink-0 sticky top-0 z-20">
         <div class="flex items-center space-x-4">
-          <button @click="isSidebarOpen = !isSidebarOpen" class="text-slate-500 hover:text-[#004B87] transition-colors focus:outline-none bg-white border border-slate-200 hover:bg-slate-50 p-1.5 rounded-lg shadow-sm">
+          <button @click="isSidebarOpen = !isSidebarOpen" class="text-slate-500 hover:text-[#004B87] transition-colors focus:outline-none bg-white border border-slate-200 hover:bg-slate-50 p-1.5 rounded-lg shadow-sm cursor-pointer">
             <svg v-if="isSidebarOpen" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" /></svg>
             <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
           </button>
           <h1 class="text-base sm:text-xl font-extrabold text-slate-800 tracking-tight">Perum Jasa Tirta 1</h1>
         </div>
 
-        <div class="flex items-center space-x-6 sm:space-x-8">
-          <div class="flex items-center space-x-3 border-l border-slate-200 pl-6 h-9">
+        <div class="flex items-center space-x-3 sm:space-x-6">
+          
+          <!-- IKON NOTIFIKASI LONCENG RESPONDEN BARU -->
+          <div class="relative">
+            <button 
+              @click="toggleNotification" 
+              class="relative p-2 text-slate-500 hover:text-[#004B87] hover:bg-slate-50 rounded-xl transition-all focus:outline-none border border-transparent hover:border-slate-200 cursor-pointer"
+              title="Notifikasi Responden Baru"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+              </svg>
+
+              <!-- BADGE MERAH COUNTER (PROPOSIONAL & BULAT RAPI) -->
+              <span 
+                v-if="hasUnread && unreadCount > 0" 
+                class="absolute -top-0.5 -right-0.5 bg-rose-500 text-white text-[11px] font-bold h-5 min-w-[20px] px-1.5 rounded-full flex items-center justify-center border-2 border-white shadow-sm leading-none animate-pulse"
+              >
+                {{ unreadCount > 9 ? '9+' : unreadCount }}
+              </span>
+            </button>
+
+            <!-- DROPDOWN BOX NOTIFIKASI -->
+            <div 
+              v-if="isNotificationOpen" 
+              class="absolute right-0 top-full mt-2 w-72 sm:w-80 bg-white rounded-2xl border border-slate-200 shadow-2xl overflow-hidden z-50 transition-all duration-200"
+            >
+              <div class="p-3.5 sm:p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/80">
+                <h3 class="text-xs font-black text-slate-800 uppercase tracking-wider">Responden Baru</h3>
+                <span class="bg-blue-100 text-[#004B87] text-[10px] font-extrabold px-2.5 py-0.5 rounded-full">
+                  {{ notificationsList.length }} Baru
+                </span>
+              </div>
+
+              <div class="max-h-80 overflow-y-auto divide-y divide-slate-100 custom-scrollbar">
+                <div v-if="notificationsList.length === 0" class="p-6 text-center">
+                  <div class="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-2 text-slate-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                    </svg>
+                  </div>
+                  <p class="text-xs text-slate-400 font-medium">Belum ada respon baru.</p>
+                </div>
+
+                <div 
+                  v-else 
+                  v-for="notif in notificationsList" 
+                  :key="notif.id" 
+                  @click="navigateToRespondents"
+                  class="p-3.5 hover:bg-blue-50/50 transition-colors cursor-pointer flex gap-3 items-start"
+                >
+                  <div class="w-8 h-8 rounded-lg bg-blue-50 text-[#004B87] flex items-center justify-center shrink-0 mt-0.5 border border-blue-100/60">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-xs font-bold text-slate-800 truncate">{{ notif.company_name }}</p>
+                    <p class="text-[11px] text-slate-500 truncate">{{ notif.nama_pengisi }} baru mengisi kuesioner.</p>
+                    <span class="text-[10px] text-slate-400 font-medium mt-1 block">{{ notif.time_ago }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-3 border-t border-slate-100 bg-slate-50 text-center">
+                <NuxtLink to="/admin/respondents" @click="isNotificationOpen = false" class="text-xs font-bold text-[#004B87] hover:underline">
+                  Lihat Semua Data Responden →
+                </NuxtLink>
+              </div>
+            </div>
+          </div>
+
+          <!-- USER PROFILE DATA -->
+          <div class="flex items-center space-x-3 border-l border-slate-200 pl-4 sm:pl-6 h-9">
             <div class="hidden sm:block text-right">
               <p class="text-sm font-bold text-slate-900 leading-none">
                  {{ isSuperAdmin ? 'User2' : 'User1' }}
@@ -104,10 +180,11 @@
                 {{ isSuperAdmin ? 'Superadmin' : 'Admin' }}
               </p>
             </div>
-            <div class="h-9 w-9 rounded-full bg-[#004B87] text-white flex items-center justify-center font-bold text-sm shadow-sm shrink-0">
+            <div class="h-8 w-8 sm:h-9 sm:w-9 rounded-full bg-[#004B87] text-white flex items-center justify-center font-bold text-xs sm:text-sm shadow-sm shrink-0">
               {{ isSuperAdmin ? 'SA' : 'AD' }}
             </div>
           </div>
+
         </div>
       </header>
 
@@ -121,7 +198,7 @@
           </div>
           <button 
             @click="openAddModal" 
-            class="bg-[#004B87] hover:bg-sky-900 text-white px-4 py-2 rounded-lg font-bold text-sm shadow flex items-center gap-2 transition-colors"
+            class="bg-[#004B87] hover:bg-sky-900 text-white px-4 py-2 rounded-lg font-bold text-sm shadow flex items-center gap-2 transition-colors cursor-pointer"
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="h-4 w-4"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
             <span>Tambah Pertanyaan</span>
@@ -173,16 +250,16 @@
                     </td>
                     <td class="px-6 py-4 text-center">
                       <div class="flex items-center justify-center gap-2">
-                        <button @click="openEditModal(q)" class="p-1.5 text-amber-600 hover:bg-amber-50 rounded border border-transparent hover:border-amber-200 transition-all" title="Ubah Pertanyaan">
+                        <button @click="openEditModal(q)" class="p-1.5 text-amber-600 hover:bg-amber-50 rounded border border-transparent hover:border-amber-200 transition-all cursor-pointer" title="Ubah Pertanyaan">
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4"><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" /></svg>
                         </button>
-                        <button @click="deleteQuestion(q.id)" class="p-1.5 text-red-600 hover:bg-red-50 rounded border border-transparent hover:border-red-200 transition-all" title="Hapus Pertanyaan">
+                        <button @click="deleteQuestion(q.id)" class="p-1.5 text-red-600 hover:bg-red-50 rounded border border-transparent hover:border-red-200 transition-all cursor-pointer" title="Hapus Pertanyaan">
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4"><path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" /></svg>
                         </button>
                         <!-- TOMBOL EXPAND DROPDOWN -->
                         <button 
                           @click="q.isExpanded = !q.isExpanded" 
-                          class="p-1.5 text-slate-400 hover:text-slate-800 transition-transform duration-300"
+                          class="p-1.5 text-slate-400 hover:text-slate-800 transition-transform duration-300 cursor-pointer"
                           :class="q.isExpanded ? 'rotate-180' : ''"
                           title="Lihat Opsi/Skala Jawaban"
                         >
@@ -257,7 +334,7 @@
           <button 
             @click="isModalOpen = false" 
             type="button" 
-            class="text-white/80 hover:text-white p-1.5 rounded-lg hover:bg-white/10 transition-colors focus:outline-none"
+            class="text-white/80 hover:text-white p-1.5 rounded-lg hover:bg-white/10 transition-colors focus:outline-none cursor-pointer"
           >
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
@@ -361,13 +438,13 @@
             <button 
               type="button" 
               @click="isModalOpen = false" 
-              class="px-5 py-2.5 text-sm sm:text-base font-bold text-slate-600 hover:bg-slate-200 rounded-xl transition-colors"
+              class="px-5 py-2.5 text-sm sm:text-base font-bold text-slate-600 hover:bg-slate-200 rounded-xl transition-colors cursor-pointer"
             >
               Batal
             </button>
             <button 
               type="submit" 
-              class="px-6 py-2.5 text-sm sm:text-base font-bold text-white bg-[#004B87] hover:bg-sky-900 rounded-xl shadow-md transition-all"
+              class="px-6 py-2.5 text-sm sm:text-base font-bold text-white bg-[#004B87] hover:bg-sky-900 rounded-xl shadow-md transition-all cursor-pointer"
             >
               Simpan Data
             </button>
@@ -442,7 +519,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
@@ -452,6 +529,76 @@ const supabase = useSupabaseClient()
 // Layout States
 const isSidebarOpen = ref(true)
 const isLoading = ref(true)
+
+// STATE NOTIFIKASI LONCENG
+const isNotificationOpen = ref(false)
+const notificationsList = ref([])
+const hasUnread = ref(false)
+const unreadCount = ref(0)
+
+const closeSidebarAndNotif = () => {
+  isNotificationOpen.value = false
+  if (window.innerWidth < 1024) {
+    isSidebarOpen.value = false
+  }
+}
+
+const toggleNotification = () => {
+  isNotificationOpen.value = !isNotificationOpen.value
+  if (isNotificationOpen.value) {
+    hasUnread.value = false
+    unreadCount.value = 0
+    localStorage.setItem('notif_read_status', 'true')
+  }
+}
+
+// FETCH NOTIFIKASI SUPABASE
+const fetchNotifications = async (isNewInsert = false) => {
+  try {
+    const { data: responses } = await supabase
+      .from('questionnaire_responses')
+      .select('id, created_at, respondent_id')
+      .order('created_at', { ascending: false })
+      .limit(5)
+
+    if (!responses) return
+
+    const { data: respondentsList } = await supabase
+      .from('respondents')
+      .select('id, company_name, nama_pengisi, jabatan')
+
+    notificationsList.value = responses.map(res => {
+      const match = respondentsList?.find(r => r.id === res.respondent_id || r.id === res.id)
+      return {
+        id: res.id,
+        company_name: match?.company_name || 'Perusahaan Baru',
+        nama_pengisi: match?.nama_pengisi || 'Anonim',
+        time_ago: new Date(res.created_at).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
+      }
+    })
+
+    const isRead = localStorage.getItem('notif_read_status') === 'true'
+
+    if (isNewInsert) {
+      localStorage.removeItem('notif_read_status')
+      hasUnread.value = true
+      unreadCount.value = unreadCount.value + 1
+    } else if (!isRead && notificationsList.value.length > 0) {
+      hasUnread.value = true
+      unreadCount.value = notificationsList.value.length
+    } else {
+      hasUnread.value = false
+      unreadCount.value = 0
+    }
+  } catch (err) {
+    console.error('Gagal mengambil notifikasi:', err)
+  }
+}
+
+const navigateToRespondents = () => {
+  isNotificationOpen.value = false
+  router.push('/admin/respondents')
+}
 
 // HAK AKSES SUPERADMIN
 const userRole = ref('')
@@ -467,6 +614,7 @@ const triggerLogoutPrompt = () => {
 const confirmLogout = () => {
   localStorage.removeItem('is_admin_logged_in')
   localStorage.removeItem('user_role')
+  localStorage.removeItem('notif_read_status')
   showLogoutModal.value = false
   router.push('/')
 }
@@ -652,24 +800,42 @@ const deleteQuestion = async (id) => {
   }
 }
 
+let realtimeChannel = null
+
 onMounted(() => {
   userRole.value = localStorage.getItem('user_role') || 'admin'
   loadQuestionsData()
+  fetchNotifications()
+
   if (window.innerWidth < 1024) {
     isSidebarOpen.value = false
+  }
+
+  realtimeChannel = supabase
+    .channel('public:questions_questionnaire_responses')
+    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'questionnaire_responses' }, () => {
+      fetchNotifications(true)
+    })
+    .subscribe()
+})
+
+onUnmounted(() => {
+  if (realtimeChannel) {
+    supabase.removeChannel(realtimeChannel)
   }
 })
 </script>
 
 <style scoped>
 .custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
+  height: 5px;
 }
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #f8fafc;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background: #cbd5e1;
-  border-radius: 8px;
+  border-radius: 4px;
 }
 </style>
