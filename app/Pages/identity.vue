@@ -4,7 +4,7 @@
     style="background-image: url('/Sutami.png'); background-size: cover; background-position: center; background-attachment: fixed;"
   >
     
-    <!-- NAVBAR (Transparan/Blur seperti index.vue) -->
+    <!-- NAVBAR -->
     <nav class="w-full bg-white/90 backdrop-blur-sm border-b border-slate-200 px-4 sm:px-8 py-4 flex items-center justify-between shadow-sm relative z-10">
       <div class="flex items-center space-x-3">
         <img src="/logopjt1.png" alt="Logo PJT I" class="h-6 sm:h-8 w-auto object-contain" />
@@ -40,7 +40,7 @@
 
         <form @submit.prevent="submitIdentity" class="space-y-6">
           
-          <!-- 1. FILLABLE TEXT NAMA -->
+          <!-- 1. NAMA LENGKAP -->
           <div class="space-y-2">
             <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
               Nama Lengkap <span class="text-rose-500">*</span>
@@ -54,7 +54,7 @@
             />
           </div>
 
-          <!-- 2. FILLABLE TEXT JABATAN -->
+          <!-- 2. JABATAN -->
           <div class="space-y-2">
             <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
               Jabatan <span class="text-rose-500">*</span>
@@ -68,21 +68,24 @@
             />
           </div>
 
-          <!-- 3. FILLABLE TEXT NOMOR TELEPON (BARU) -->
+          <!-- 3. NOMOR TELEPON (HANYA ANGKA) -->
           <div class="space-y-2">
             <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
               Nomor Telepon / WA <span class="text-rose-500">*</span>
             </label>
             <input 
               v-model="phonePengisi"
-              type="tel" 
+              type="text"
+              inputmode="numeric"
+              pattern="[0-9]*"
               required
+              @input="filterPhoneInput"
               placeholder="Contoh: 081234567890" 
               class="w-full bg-slate-50 text-slate-900 px-4 py-3 rounded-xl border border-slate-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#004B87] font-medium text-sm transition-all"
             />
           </div>
 
-          <!-- 4. FILLABLE TEXT EMAIL (BARU) -->
+          <!-- 4. EMAIL RESMI -->
           <div class="space-y-2">
             <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
               Email Resmi <span class="text-rose-500">*</span>
@@ -140,13 +143,17 @@ const emailPengisi = ref('')
 
 const isSubmitting = ref(false)
 
+// SANITASI INPUT NOMOR TELEPON (HANYA MENGIZINKAN DIGIT ANGKA)
+const filterPhoneInput = (event) => {
+  phonePengisi.value = event.target.value.replace(/\D/g, '')
+}
+
 // Ambil data perusahaan yang dipilih dari localStorage saat halaman diload
 onMounted(() => {
   companyName.value = localStorage.getItem('pending_company_name') || ''
   category.value = localStorage.getItem('pending_category') || ''
   subCategory.value = localStorage.getItem('pending_sub_category') || ''
 
-  // Jika tidak ada data di localStorage (user akses langsung via URL), kembalikan ke index
   if (!companyName.value) {
     alert('Sesi tidak valid. Silakan pilih instansi/perusahaan terlebih dahulu dari halaman utama.')
     router.push('/')
@@ -160,7 +167,6 @@ const submitIdentity = () => {
   try {
     isSubmitting.value = true
 
-    // Simpan seluruh data identitas yang dibutuhkan ke localStorage sementara
     localStorage.setItem('pending_nama_pengisi', namaPengisi.value)
     localStorage.setItem('pending_jabatan', jabatanPengisi.value)
     localStorage.setItem('pending_phone', phonePengisi.value)
@@ -170,7 +176,6 @@ const submitIdentity = () => {
     localStorage.setItem('pending_category', category.value || '')
     localStorage.setItem('pending_sub_category', subCategory.value || '')
 
-    // Pindah ke kuesioner
     router.push('/questionnaire')
   } catch (err) {
     console.error('Gagal menyimpan data sementara:', err.message)
